@@ -42,6 +42,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-sleuth'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'Yggdroot/indentLine'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' } " only used for the airline theme
 
 " Load vim-devicons last
 Plug 'ryanoasis/vim-devicons'
@@ -49,7 +50,6 @@ Plug 'ryanoasis/vim-devicons'
 " Initialize plugin system
 call plug#end()
 
-" colorscheme dracula
 
 " Set hybrid line numbers
 set relativenumber
@@ -76,11 +76,27 @@ autocmd FileType markdown nnoremap <Leader>b :Pandoc beamer <CR>
 autocmd FileType markdown nnoremap <Leader>h :! pandoc % --toc -s --mathjax -o %:r.html <CR>
 
 
+" ------------------------------------------------------------------------
 " Colors
-highlight Folded ctermfg=4 ctermbg=8
-highlight SpellBad ctermfg=7 ctermbg=9
-highlight Search ctermfg=grey ctermbg=yellow
-highlight Pmenu ctermfg=7 ctermbg=8
+" ------------------------------------------------------------------------
+execute "set t_8f=\e[38;2;%lu;%lu;%lum"
+execute "set t_8b=\e[48;2;%lu;%lu;%lum"
+
+" Load custom variant of material theme
+source $HOME/.config/nvim/colors/material.vim
+
+set termguicolors
+
+let g:material_theme_style='default'
+let g:airline_theme='material'
+let g:material_terminal_italics = 1
+set background=dark
+colorscheme material
+
+"let g:airline_theme='dracula'
+"colorscheme dracula
+
+hi Normal guibg=NONE ctermbg=NONE
 
 " Tab switching
 no <C-j> <C-w>j | "Switching Below tab
@@ -88,29 +104,9 @@ no <C-k> <C-w>k | "Switching Above tab
 no <C-l> <C-w>l | "Switching Right tab
 no <C-h> <C-w>h | "Switching Left tab
 
-let g:airline_theme='dracula'
-
-" Colors from Distro Tube (Dracula theme)
-  highlight LineNr           ctermfg=8    ctermbg=none    cterm=none
-  highlight CursorLineNr     ctermfg=7    ctermbg=8       cterm=none
-  highlight VertSplit        ctermfg=0    ctermbg=8       cterm=none
-  highlight Statement        ctermfg=2    ctermbg=none    cterm=none
-  highlight Directory        ctermfg=4    ctermbg=none    cterm=none
-  highlight StatusLine       ctermfg=7    ctermbg=8       cterm=none
-  highlight StatusLineNC     ctermfg=7    ctermbg=8       cterm=none
-  highlight NERDTreeClosable ctermfg=2
-  highlight NERDTreeOpenable ctermfg=8
-  highlight Comment          ctermfg=4    ctermbg=none    cterm=none
-  highlight Constant         ctermfg=12   ctermbg=none    cterm=none
-  highlight Special          ctermfg=4    ctermbg=none    cterm=none
-  highlight Identifier       ctermfg=6    ctermbg=none    cterm=none
-  highlight PreProc          ctermfg=5    ctermbg=none    cterm=none
-  highlight String           ctermfg=12   ctermbg=none    cterm=none
-  highlight Number           ctermfg=1    ctermbg=none    cterm=none
-  highlight Function         ctermfg=1    ctermbg=none    cterm=none
 
 " Remove pipe symbols from splits
-set fillchars+=vert:\
+set fillchars+=vert:\ 
 
 " Splits and tabs
 set splitbelow splitright
@@ -270,4 +266,4 @@ let g:gitgutter_sign_added = '++'
 let g:gitgutter_sign_removed = '--'
 
 " Better whitespace config
-let g:strip_whitespace_on_save = 1
+let g:strip_whitespace_on_save = 0
