@@ -42,6 +42,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-sleuth'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'Yggdroot/indentLine'
+Plug 'puremourning/vimspector'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' } " only used for the airline theme
 
 " Load vim-devicons last
@@ -267,3 +268,22 @@ let g:gitgutter_sign_removed = '--'
 
 " Better whitespace config
 let g:strip_whitespace_on_save = 0
+
+
+" ------------------------------------------------------------------------
+" Vim spector
+" ------------------------------------------------------------------------
+
+nnoremap <leader>dd :call vimspector#Launch()<CR>
+nnoremap <leader>de :call vimspector#Reset()<CR>
+
+nmap <leader>drc <Plug>VimspectorRunToCursor
+nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
+nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
+
+nmap <leader>dl <Plug>VimSpectorStepInto
+nmap <leader>dj <Plug>VimSpectorStepOver
+nmap <leader>dk <Plug>VimSpectorStepOut
+nmap <leader>d_ <Plug>VimSpectorRestart
+
+nnoremap <leader>d<space> :call vimspector#Continue()<CR>
