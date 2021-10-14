@@ -11,6 +11,8 @@ local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
 local media_player = require("plugins.media-player")
+local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
+local mpris_widget = require("awesome-wm-widgets.mpris-widget")
 
 local math, string, os = math, string, os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -196,9 +198,10 @@ local media = media_player({
         pause = theme.widget_music_pause
     },
     font = theme.font,
-    name = "firefox",
+    name = "Deezer",
     refresh_rate = 0.3
 })
+
 
 -- MPD
 local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
@@ -397,10 +400,10 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            wibox.container.margin(scissors, dpi(4), dpi(8)),
+            --wibox.container.margin(scissors, dpi(4), dpi(8)),
             -- using shapes
             --pl(wibox.widget { mpdicon, theme.mpd.widget, layout = wibox.layout.align.horizontal }, "#343434"),
-            pl(media.widget, "#343434"),
+            pl(mpris_widget(), "#343434"),
             pl(task, "#343434"),
             --pl(wibox.widget { mailicon, mail and theme.mail.widget, layout = wibox.layout.align.horizontal }, "#343434"),
             pl(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, "#777E76"),
@@ -436,6 +439,7 @@ function theme.at_screen_connect(s)
             arrow("#777E76", "alpha"),
             --]]
             s.mylayoutbox,
+            logout_menu_widget(),
         },
     }
 end
