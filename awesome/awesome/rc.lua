@@ -384,8 +384,14 @@ globalkeys = mytable.join(
 
     -- Scripts
     awful.key({ modkey },            "F5",     function () awful.util.spawn(script_dir .. "configs.sh") end,
-              {description = "open config file", group = "Scripts"})
+              {description = "open config file", group = "Scripts"}),
 
+    -- Taskwarrior
+    awful.key({ modkey, "Shift" }, "t", function () lain.widget.contrib.task.show() end,
+              {description = "Taskwarrior show next task", group = "Scripts"}),
+
+    awful.key({ modkey , "Control" }, "t", lain.widget.contrib.task.prompt,
+              {description = "Taskwarrior command", group = "Scripts"})
 
 )
 
