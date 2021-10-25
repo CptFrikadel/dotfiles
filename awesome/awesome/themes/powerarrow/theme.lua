@@ -104,6 +104,41 @@ theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/
 local markup = lain.util.markup
 local separators = lain.util.separators
 
+-- Redshift
+local myredshift = wibox.widget{
+    checked      = false,
+    check_color  = "#CC5C5C",
+    border_color = "#CC5C5C",
+    border_width = 1,
+    shape        = gears.shape.circle,
+    widget       = wibox.widget.checkbox
+}
+
+local myredshift_text = wibox.widget{
+    align  = "center",
+    widget = wibox.widget.textbox,
+}
+
+local myredshift_stack = wibox.widget{
+    myredshift,
+    myredshift_text,
+    layout = wibox.layout.stack
+}
+
+lain.widget.contrib.redshift.attach(
+    myredshift,
+    function (active)
+        if active then
+            -- rename 'beautiful' to 'theme' if using awesome-copycats
+            myredshift_text:set_markup(markup(theme.bg_normal, "<b>R</b>"))
+        else
+            -- rename 'beautiful' to 'theme' if using awesome-copycats
+            myredshift_text:set_markup(markup(theme.fg_normal, "R"))
+        end
+        myredshift.checked = active
+    end
+)
+
 -- Binary clock
 local binclock = require("themes.powerarrow.binclock"){
     height = dpi(22),
@@ -405,14 +440,18 @@ function theme.at_screen_connect(s)
             -- using shapes
             --pl(wibox.widget { mpdicon, theme.mpd.widget, layout = wibox.layout.align.horizontal }, "#343434"),
             pl(mpris_widget(), "#343434"),
+
             pl(task, "#343434"),
+            pl(myredshift_stack, "#343434"),
             --pl(wibox.widget { mailicon, mail and theme.mail.widget, layout = wibox.layout.align.horizontal }, "#343434"),
+            --pl(wibox.widget { weathericon, myweather.widget, layout = wibox.layout.align.horizontal }, "#343434"),
             pl(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, "#777E76"),
             pl(wibox.widget { cpuicon, cpu.widget, layout = wibox.layout.align.horizontal }, "#4B696D"),
-            pl(wibox.widget { volumeicon, volume.widget, layout = wibox.layout.align.horizontal }, "#4B3B51"),
-            --pl(wibox.widget { fsicon, theme.fs and theme.fs.widget, layout = wibox.layout.align.horizontal }, "#CB755B"),
-            -- pl(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, "#8DAA9A"),
-            pl(wibox.widget { neticon, net.widget, layout = wibox.layout.align.horizontal }, "#C0C0A2"),
+            pl(wibox.widget { fsicon, theme.fs and theme.fs.widget, layout = wibox.layout.align.horizontal }, "#CB755B"),
+            --pl(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, "#8DAA9A"),
+            pl(wibox.widget { volumeicon, volume.widget, layout = wibox.layout.align.horizontal }, "#8DAA9A"),
+            --pl(wibox.widget { volumeicon, volume.widget, layout = wibox.layout.align.horizontal }, "#4B3B51"),
+            --pl(wibox.widget { neticon, net.widget, layout = wibox.layout.align.horizontal }, "#C0C0A2"),
             pl(binclock.widget, "#777E76"),
             --]]
             -- using separators

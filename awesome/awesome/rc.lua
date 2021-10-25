@@ -391,8 +391,11 @@ globalkeys = mytable.join(
               {description = "Taskwarrior show next task", group = "Scripts"}),
 
     awful.key({ modkey , "Control" }, "t", lain.widget.contrib.task.prompt,
-              {description = "Taskwarrior command", group = "Scripts"})
+              {description = "Taskwarrior command", group = "Scripts"}),
 
+    -- Toggle Redshift
+    awful.key({ modkey, "Shift" }, "r", function () lain.widget.contrib.redshift.toggle() end,
+              {description="Toggle Redshift", group="Misc"})
 )
 
 clientkeys = mytable.join(
