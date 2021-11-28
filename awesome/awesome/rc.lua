@@ -375,15 +375,23 @@ globalkeys = mytable.join(
     -- Applications
     awful.key({ modkey },            "F1",     function () awful.util.spawn(terminal .." -e ranger") end,
               {description = "launch ranger", group = "Applications"}),
+    awful.key({ modkey },            "r",     function () awful.util.spawn(terminal .." -e ranger") end,
+              {description = "launch ranger", group = "Applications"}),
 
-    awful.key({ modkey },            "F2",     function () awful.util.spawn("firefox") end,
-              {description = "launch firefox", group = "Applications"}),
+    awful.key({ modkey },            "F2",     function () awful.util.spawn(browser) end,
+              {description = "launch browser", group = "Applications"}),
+    awful.key({ modkey },            "b",     function () awful.util.spawn(browser) end,
+              {description = "launch browser", group = "Applications"}),
 
     awful.key({ modkey },            "F3",     function () awful.util.spawn("nautilus") end,
+              {description = "launch nautilus", group = "Applications"}),
+    awful.key({ modkey, "Shift" },  "r",     function () awful.util.spawn("nautilus") end,
               {description = "launch nautilus", group = "Applications"}),
 
     -- Scripts
     awful.key({ modkey },            "F5",     function () awful.util.spawn(script_dir .. "configs.sh") end,
+              {description = "open config file", group = "Scripts"}),
+    awful.key({ modkey },            "c",     function () awful.util.spawn(script_dir .. "configs.sh") end,
               {description = "open config file", group = "Scripts"}),
 
     -- Taskwarrior
@@ -652,6 +660,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- AutoStart
 awful.spawn.with_shell("setxkbmap -option caps:escape")
 awful.spawn.with_shell("setxkbmap -option compose:menu")
+awful.spawn.with_shell("systemctl --user stop redshift-gtk.service")
 awful.spawn.with_shell("compton")
 awful.spawn.with_shell("dropbox start")
 -- awful.spawn.with_shell("nitrogen --restore")
