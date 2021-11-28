@@ -403,7 +403,16 @@ globalkeys = mytable.join(
 
     -- Toggle Redshift
     awful.key({ modkey, "Shift" }, "r", function () lain.widget.contrib.redshift.toggle() end,
-              {description="Toggle Redshift", group="Misc"})
+              {description="Toggle Redshift", group="Misc"}),
+
+    -- Multimedia Keys
+    awful.key({ }, "XF86AudioPlay", function () awful.spawn("playerctl play-pause") end),
+    awful.key({ }, "XF86AudioNext", function () awful.spawn("playerctl next") end),
+    awful.key({ }, "XF86AudioPrev", function () awful.spawn("playerctl previous") end),
+
+    awful.key({}, "XF86AudioRaiseVolume", function() os.execute("pactl set-sink-volume 1 +5%") end),
+    awful.key({}, "XF86AudioLowerVolume", function() os.execute("pactl set-sink-volume 1 -5%") end),
+    awful.key({}, "XF86AudioMute", function() os.execute("pactl set-sink-mute 1 toggle") end)
 )
 
 clientkeys = mytable.join(
