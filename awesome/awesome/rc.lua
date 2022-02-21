@@ -385,8 +385,6 @@ globalkeys = mytable.join(
 
     awful.key({ modkey },            "F3",     function () awful.util.spawn("nautilus") end,
               {description = "launch nautilus", group = "Applications"}),
-    awful.key({ modkey, "Shift" },  "r",     function () awful.util.spawn("nautilus") end,
-              {description = "launch nautilus", group = "Applications"}),
 
     -- Scripts
     awful.key({ modkey },            "F5",     function () awful.util.spawn(script_dir .. "configs.sh") end,

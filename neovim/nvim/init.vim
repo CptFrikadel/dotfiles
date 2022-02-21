@@ -60,12 +60,14 @@ syntax on
 set encoding=UTF-8
 
 set mouse=a
-"set tabstop=4
-"set shiftwidth=4
+set tabstop=4
+set shiftwidth=4
 
 " Reload file when changed externally
 set autoread
 
+" Don't conceal in isert and normal mode
+let g:indentLine_concealcursor = ''
 
 " vimtex stuffs
 let g:vimtex_view_general_viewer = 'evince'

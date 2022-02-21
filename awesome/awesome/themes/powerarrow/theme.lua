@@ -13,6 +13,7 @@ local dpi   = require("beautiful.xresources").apply_dpi
 local media_player = require("plugins.media-player")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 local mpris_widget = require("awesome-wm-widgets.mpris-widget")
+--local weather_widget = require("awesome-wm-widgets.weather-widget.weather")
 
 local math, string, os = math, string, os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -238,6 +239,16 @@ local media = media_player({
     refresh_rate = 0.3
 })
 
+--[[
+local weathericon = wibox.widget.imagebox(theme.widget_temp)
+local myweather = lain.widgets.weather({
+    city_id = 3621849, -- placeholder
+    APPID = 'ae9650404ca51157fdb663a6f367833e',
+    settings = function()
+        --widget:set_markup(markup("#eca4c4", descr .. " @ " .. units .. "°C "))
+    end
+})
+]]--
 
 -- MPD
 local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
@@ -310,7 +321,7 @@ local tempicon = wibox.widget.imagebox(theme.widget_temp)
 
 -- / fs
 local fsicon = wibox.widget.imagebox(theme.widget_hdd)
---[[ commented because it needs Gio/Glib >= 2.54
+--[[ commented because it needs Gio/Glib >= 2.54 --]]
 theme.fs = lain.widget.fs({
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
     settings = function()
