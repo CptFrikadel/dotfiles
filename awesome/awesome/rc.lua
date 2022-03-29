@@ -666,7 +666,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- AutoStart
 awful.spawn.with_shell("setxkbmap -option caps:escape")
-awful.spawn.with_shell("setxkbmap -option compose:menu")
+awful.spawn.with_shell("setxkbmap -option compose:ralt")
 awful.spawn.with_shell("systemctl --user stop redshift-gtk.service")
 awful.spawn.with_shell("compton")
 awful.spawn.with_shell("dropbox start")
