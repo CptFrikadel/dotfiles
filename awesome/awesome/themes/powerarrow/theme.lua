@@ -10,7 +10,7 @@ local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
-local media_player = require("plugins.media-player")
+--local media_player = require("plugins.media-player")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 local mpris_widget = require("awesome-wm-widgets.mpris-widget")
 --local weather_widget = require("awesome-wm-widgets.weather-widget.weather")
@@ -40,7 +40,7 @@ theme.titlebar_bg_normal                        = "#3F3F3F"
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
-theme.menu_height                               = dpi(16)
+theme.menu_height                               = dpi(18)
 theme.menu_width                                = dpi(140)
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
 theme.awesome_icon                              = theme.dir .. "/icons/awesome.png"
@@ -82,7 +82,7 @@ theme.widget_task                               = theme.dir .. "/icons/task.png"
 theme.widget_scissors                           = theme.dir .. "/icons/scissors.png"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
-theme.useless_gap                               = dpi(5)
+theme.useless_gap                               = dpi(3)
 theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
 theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
 theme.titlebar_ontop_button_focus_active        = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
@@ -229,15 +229,15 @@ volume.widget:buttons(awful.util.table.join(
     end)
 ))
 
-local media = media_player({
-    icons = {
-        play = theme.widget_music_on,
-        pause = theme.widget_music_pause
-    },
-    font = theme.font,
-    name = "Deezer",
-    refresh_rate = 0.3
-})
+--local media = media_player({
+--    icons = {
+--        play = theme.widget_music_on,
+--        pause = theme.widget_music_pause
+--    },
+--    font = theme.font,
+--    name = "Deezer",
+--    refresh_rate = 0.3
+--})
 
 --[[
 local weathericon = wibox.widget.imagebox(theme.widget_temp)
@@ -251,38 +251,38 @@ local myweather = lain.widgets.weather({
 ]]--
 
 -- MPD
-local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
-local mpdicon = wibox.widget.imagebox(theme.widget_music)
-mpdicon:buttons(my_table.join(
-    awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
-    awful.button({ }, 1, function ()
-        os.execute("mpc prev")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 2, function ()
-        os.execute("mpc toggle")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 3, function ()
-        os.execute("mpc next")
-        theme.mpd.update()
-    end)))
-theme.mpd = lain.widget.mpd({
-    settings = function()
-        if mpd_now.state == "play" then
-            artist = " " .. mpd_now.artist .. " "
-            title  = mpd_now.title  .. " "
-            mpdicon:set_image(theme.widget_music_on)
-            widget:set_markup(markup.font(theme.font, markup("#FF8466", artist) .. " " .. title))
-        elseif mpd_now.state == "pause" then
-            widget:set_markup(markup.font(theme.font, " mpd paused "))
-            mpdicon:set_image(theme.widget_music_pause)
-        else
-            widget:set_text("")
-            mpdicon:set_image(theme.widget_music)
-        end
-    end
-})
+--local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
+--local mpdicon = wibox.widget.imagebox(theme.widget_music)
+--mpdicon:buttons(my_table.join(
+--    awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
+--    awful.button({ }, 1, function ()
+--        os.execute("mpc prev")
+--        theme.mpd.update()
+--    end),
+--    awful.button({ }, 2, function ()
+--        os.execute("mpc toggle")
+--        theme.mpd.update()
+--    end),
+--    awful.button({ }, 3, function ()
+--        os.execute("mpc next")
+--        theme.mpd.update()
+--    end)))
+--theme.mpd = lain.widget.mpd({
+--    settings = function()
+--        if mpd_now.state == "play" then
+--            artist = " " .. mpd_now.artist .. " "
+--            title  = mpd_now.title  .. " "
+--            mpdicon:set_image(theme.widget_music_on)
+--            widget:set_markup(markup.font(theme.font, markup("#FF8466", artist) .. " " .. title))
+--        elseif mpd_now.state == "pause" then
+--            widget:set_markup(markup.font(theme.font, " mpd paused "))
+--            mpdicon:set_image(theme.widget_music_pause)
+--        else
+--            widget:set_text("")
+--            mpdicon:set_image(theme.widget_music)
+--        end
+--    end
+--})
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
@@ -431,7 +431,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(22), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(20), bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -459,9 +459,9 @@ function theme.at_screen_connect(s)
             pl(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, "#777E76"),
             pl(wibox.widget { cpuicon, cpu.widget, layout = wibox.layout.align.horizontal }, "#4B696D"),
             pl(wibox.widget { fsicon, theme.fs and theme.fs.widget, layout = wibox.layout.align.horizontal }, "#CB755B"),
-            --pl(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, "#8DAA9A"),
-            pl(wibox.widget { volumeicon, volume.widget, layout = wibox.layout.align.horizontal }, "#8DAA9A"),
-            --pl(wibox.widget { volumeicon, volume.widget, layout = wibox.layout.align.horizontal }, "#4B3B51"),
+            pl(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, "#8DAA9A"),
+            --pl(wibox.widget { volumeicon, volume.widget, layout = wibox.layout.align.horizontal }, "#8DAA9A"),
+            pl(wibox.widget { volumeicon, volume.widget, layout = wibox.layout.align.horizontal }, "#4B3B51"),
             --pl(wibox.widget { neticon, net.widget, layout = wibox.layout.align.horizontal }, "#C0C0A2"),
             pl(binclock.widget, "#777E76"),
             --]]
