@@ -106,8 +106,8 @@ local terminal     = "alacritty"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
-local browser      = "firefox"
-
+local browser      = "brave"
+local lock_image   = "~/Pictures/61116843_2141407989291577_1490316757942927360_o.jpg"
 
 local script_dir = os.getenv( "HOME" ) .. "/.scripts/"
 
@@ -389,8 +389,9 @@ globalkeys = mytable.join(
     -- Scripts
     awful.key({ modkey },            "F5",     function () awful.util.spawn(script_dir .. "configs.sh") end,
               {description = "open config file", group = "Scripts"}),
-    awful.key({ modkey },            "c",     function () awful.util.spawn(script_dir .. "configs.sh") end,
-              {description = "open config file", group = "Scripts"}),
+
+    awful.key({ modkey },            "F4",     function () awful.util.spawn(script_dir .. "monitorstuff.sh") end,
+              {description = "select monitor config", group = "Scripts"}),
 
     -- Taskwarrior
     awful.key({ modkey, "Shift" }, "t", function () lain.widget.contrib.task.show() end,
@@ -410,7 +411,15 @@ globalkeys = mytable.join(
 
     awful.key({}, "XF86AudioRaiseVolume", function() os.execute("pactl set-sink-volume 1 +5%") end),
     awful.key({}, "XF86AudioLowerVolume", function() os.execute("pactl set-sink-volume 1 -5%") end),
-    awful.key({}, "XF86AudioMute", function() os.execute("pactl set-sink-mute 1 toggle") end)
+    awful.key({}, "XF86AudioMute", function() os.execute("pactl set-sink-mute 1 toggle") end),
+
+    -- Launch calculator
+    awful.key({ modkey },            "c",     function () awful.util.spawn("qalculate-qt") end,
+              {description = "launch calculator", group = "Applications"}),
+
+    -- Lock screen
+    awful.key({ modkey, "Shift", "Control" },            "l",     function () awful.util.spawn("i3lock -i " .. lock_image .. " --fill") end,
+              {description = "Lock Screen", group = "Screen"})
 )
 
 clientkeys = mytable.join(
@@ -668,26 +677,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell("setxkbmap -option caps:escape")
 awful.spawn.with_shell("setxkbmap -option compose:menu")
 awful.spawn.with_shell("systemctl --user stop redshift-gtk.service")
-awful.spawn.with_shell("compton")
+awful.spawn.with_shell("compton --config ~/.config/compton.conf")
 awful.spawn.with_shell("dropbox start")
 -- awful.spawn.with_shell("nitrogen --restore")
-
-
--- turn titlebar on when client is floating
--------------------------------------------------------------------------------
-client.connect_signal("property::floating", function(c)
-  if c.floating and not c.requests_no_titlebar and not c.maximized then
-    awful.titlebar.show(c)
-  else
-    awful.titlebar.hide(c)
-  end
-end)
-
--- turn tilebars on when layout is floating
--------------------------------------------------------------------------------
-awful.tag.attached_connect_signal(nil, "property::layout", function (t)
-  local float = t.layout.name == "floating"
-  for _,c in pairs(t:clients()) do
-    c.floating = float
-  end
-end)
