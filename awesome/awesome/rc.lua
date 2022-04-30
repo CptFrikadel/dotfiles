@@ -107,9 +107,8 @@ local vi_focus     = false -- vi-like client focus https://github.com/lcpz/aweso
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
 local browser      = "brave"
-local lock_image   = "~/Pictures/61116843_2141407989291577_1490316757942927360_o.jpg"
 
-local script_dir = os.getenv( "HOME" ) .. "/.scripts/"
+local script_dir = os.getenv( "HOME" ) .. "/.config/scripts/"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
@@ -418,7 +417,7 @@ globalkeys = mytable.join(
               {description = "launch calculator", group = "Applications"}),
 
     -- Lock screen
-    awful.key({ modkey, "Shift", "Control" },            "l",     function () awful.util.spawn("i3lock -i " .. lock_image .. " --fill") end,
+    awful.key({ modkey, "Shift", "Control" },            "l",     function () awful.util.spawn(script_dir .. "lock.sh") end,
               {description = "Lock Screen", group = "Screen"})
 )
 
