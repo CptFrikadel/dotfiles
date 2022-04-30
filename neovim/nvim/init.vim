@@ -70,7 +70,7 @@ set autoread
 let g:indentLine_concealcursor = ''
 
 " vimtex stuffs
-let g:vimtex_view_general_viewer = 'evince'
+let g:vimtex_view_method = 'mupdf'
 let g:tex_flavor = 'latex'
 
 " Markdown mappings
