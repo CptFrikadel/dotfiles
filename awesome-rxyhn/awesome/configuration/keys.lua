@@ -5,7 +5,7 @@ local gfs = require("gears.filesystem")
 local naughty = require("naughty")
 local helpers = require("helpers")
 local bling = require("module.bling")
---local playerctl = bling.signal.playerctl.lib()
+local playerctl = bling.signal.playerctl.lib()
 local machi = require("module.layout-machi")
 local apps = require("configuration.apps")
 
@@ -119,6 +119,18 @@ awful.keyboard.append_global_keybindings({
 
 	awful.key({}, "XF86AudioNext", function()
 		playerctl:next()
+	end, { description = "next music", group = "hotkeys" }),
+
+	awful.key({modkey}, "p", function()
+		awful.spawn("playerctl play-pause")
+	end, { description = "pause music", group = "hotkeys" }),
+
+	awful.key({modkey}, "[", function()
+		awful.spawn("playerctl previous")
+	end, { description = "previous music", group = "hotkeys" }),
+
+	awful.key({modkey}, "]", function()
+		awful.spawn("playerctl next")
 	end, { description = "next music", group = "hotkeys" }),
 
 	-- Color picker
