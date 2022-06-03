@@ -98,12 +98,12 @@ awful.screen.connect_for_each_screen(function(s)
 		stretch = false,
 		visible = true,
 		height = dpi(40),
-		width = s.geometry.width - dpi(30),
+		width = s.geometry.width - dpi(0),
 		screen = s,
 		bg = beautiful.transparent,
 	})
 
-	awful.placement.top(s.mywibar, { margins = beautiful.useless_gap * 2 })
+	awful.placement.top(s.mywibar, { margins = beautiful.useless_gap * 0 })
 
 	s.mywibar:struts({
 		top = dpi(45),

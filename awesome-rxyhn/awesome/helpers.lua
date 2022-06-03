@@ -552,11 +552,11 @@ end
 function helpers.music_control(state)
 	local cmd
 	if state == "toggle" then
-		cmd = "playerctl -p spotify,mpd play-pause"
+		cmd = "playerctl play-pause"
 	elseif state == "prev" then
-		cmd = "playerctl -p spotify,mpd previous"
+		cmd = "playerctl previous"
 	elseif state == "next" then
-		cmd = "playerctl -p spotify,mpd next"
+		cmd = "playerctl next"
 	end
 	awful.spawn.with_shell(cmd)
 end
