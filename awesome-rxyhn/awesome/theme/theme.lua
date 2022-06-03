@@ -132,8 +132,8 @@ theme.snap_bg = theme.xcolor8
 theme.snap_shape = helpers.rrect(0)
 
 -- Playerctl
-theme.playerctl_ignore = { "firefox", "qutebrowser", "chromium", "brave" }
-theme.playerctl_player = { "spotify", "mpd", "%any" }
+theme.playerctl_ignore = { "firefox", "qutebrowser", "chromium" }
+theme.playerctl_player = { "spotify", "mpd", "brave", "%any" }
 theme.playerctl_update_on_activity = true
 theme.playerctl_position_update_interval = 1
 
