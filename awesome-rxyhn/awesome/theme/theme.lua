@@ -192,15 +192,15 @@ theme.systray_icon_spacing = dpi(16)
 theme.mstab_bar_height = dpi(60)
 theme.mstab_bar_padding = dpi(0)
 theme.mstab_border_radius = theme.corner_radius
-theme.tabbar_disable = true
+theme.tabbar_disable = false
 theme.tabbar_style = "modern"
 theme.tabbar_bg_focus = theme.lighter_bg
 theme.tabbar_bg_normal = theme.darker_bg
 theme.tabbar_fg_focus = theme.xforeground
 theme.tabbar_fg_normal = theme.xcolor0
-theme.tabbar_position = "bottom"
-theme.tabbar_AA_radius = 0
-theme.tabbar_size = 0
+theme.tabbar_position = "top"
+theme.tabbar_AA_radius = 5
+theme.tabbar_size = 40
 theme.mstab_bar_ontop = true
 
 -- Notifications
