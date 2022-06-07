@@ -8,12 +8,12 @@ local lock_screen = require("module.lockscreen")
 lock_screen.init()
 
 -- Icons
-local icon_font = "icomoon bold 45"
-local poweroff_text_icon = ""
-local reboot_text_icon = ""
-local suspend_text_icon = ""
+local icon_font = "BlexMono Bold 45"
+local poweroff_text_icon = "⏻"
+local reboot_text_icon = ""
+local suspend_text_icon = "⏾"
 local exit_text_icon = ""
-local lock_text_icon = ""
+local lock_text_icon = ""
 
 local button_bg = beautiful.xbackground
 local button_size = dpi(120)
@@ -50,18 +50,26 @@ local create_button = function(symbol, hover_color, text, command)
 		forced_height = button_size,
 		forced_width = button_size,
 		align = "center",
-		valign = "center",
+		valign = "bottom",
 		font = icon_font,
 		markup = helpers.colorize_text(symbol, beautiful.xforeground .. 55),
 		widget = wibox.widget.textbox(),
 	})
 
+	local textbox = wibox.widget({
+		align = "center",
+		valign = "center",
+		forced_width = button_size,
+		markup = helpers.colorize_text(text, beautiful.xforeground .. 55),
+		widget = wibox.widget.textbox(),
+	})
+
 	local button = wibox.widget({
 		{
-			nil,
 			icon,
-			expand = "none",
-			layout = wibox.layout.align.horizontal,
+			textbox,
+			spacing = -20,
+			layout = wibox.layout.flex.vertical,
 		},
 		forced_height = button_size,
 		forced_width = button_size,
@@ -78,10 +86,12 @@ local create_button = function(symbol, hover_color, text, command)
 
 	button:connect_signal("mouse::enter", function()
 		icon.markup = helpers.colorize_text(icon.text, hover_color)
+		textbox.markup = helpers.colorize_text(textbox.text, hover_color)
 		button.border_color = hover_color
 	end)
 	button:connect_signal("mouse::leave", function()
 		icon.markup = helpers.colorize_text(icon.text, beautiful.xforeground .. 55)
+		textbox.markup = helpers.colorize_text(textbox.text, beautiful.xforeground .. 55)
 		button.border_color = beautiful.widget_border_color
 	end)
 
