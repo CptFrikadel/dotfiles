@@ -58,6 +58,7 @@ ruled.client.connect_signal("request::rules", function()
 			class = {
 				"Lxappearance",
 				"Nm-connection-editor",
+				"qalculate-qt",
 			},
 			name = {
 				"Event Tester", -- xev
