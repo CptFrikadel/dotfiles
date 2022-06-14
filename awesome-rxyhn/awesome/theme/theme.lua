@@ -132,7 +132,7 @@ theme.snap_bg = theme.xcolor8
 theme.snap_shape = helpers.rrect(0)
 
 -- Playerctl
-theme.playerctl_ignore = { "firefox", "qutebrowser", "chromium" }
+theme.playerctl_ignore = { "firefox", "qutebrowser" }
 theme.playerctl_player = { "spotify", "mpd", "brave", "%any" }
 theme.playerctl_update_on_activity = true
 theme.playerctl_position_update_interval = 1
@@ -199,7 +199,7 @@ theme.tabbar_bg_normal = theme.darker_bg
 theme.tabbar_fg_focus = theme.xforeground
 theme.tabbar_fg_normal = theme.xforeground
 theme.tabbar_position = "top"
-theme.tabbar_AA_radius = 5
+theme.tabbar_AA_radius = 0
 theme.tabbar_size = 40
 theme.mstab_bar_ontop = true
 

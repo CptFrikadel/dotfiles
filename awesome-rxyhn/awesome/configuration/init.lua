@@ -1,13 +1,13 @@
 local awful = require("awful")
 local gears = require("gears")
 local naughty = require("naughty")
-local wibox = require("wibox")
 local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local helpers = require("helpers")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local apps = require("configuration.apps")
+
 
 -- Bling Module
 local bling = require("module.bling")
@@ -95,9 +95,7 @@ end)
 
 -- Screen Padding and Tags
 screen.connect_signal("request::desktop_decoration", function(s)
-	-- Screen padding
-	screen[s].padding = dpi(5)
-	-- -- Each screen has its own tag table.
+	-- Each screen has its own tag table.
 	awful.tag({ "1", "2", "3", "4", "5", "6", "7"}, s, awful.layout.layouts[1])
 end)
 
