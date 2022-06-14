@@ -63,7 +63,7 @@ awesome.connect_signal("widgets::splash::visibility", function(vis)
 end)
 
 -- Flash focus
---bling.module.flash_focus.enable()
+bling.module.flash_focus.enable()
 
 -- Custom Layouts
 local mstab = bling.layout.mstab
