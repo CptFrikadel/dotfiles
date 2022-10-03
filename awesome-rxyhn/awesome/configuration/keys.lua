@@ -110,15 +110,15 @@ awful.keyboard.append_global_keybindings({
 
 	-- Music
 	awful.key({}, "XF86AudioPlay", function()
-		playerctl:play_pause()
+		awful.spawn("playerctl play-pause")
 	end, { description = "toggle music", group = "hotkeys" }),
 
 	awful.key({}, "XF86AudioPrev", function()
-		playerctl:previous()
+		awful.spawn("playerctl previous")
 	end, { description = "previous music", group = "hotkeys" }),
 
 	awful.key({}, "XF86AudioNext", function()
-		playerctl:next()
+		awful.spawn("playerctl next")
 	end, { description = "next music", group = "hotkeys" }),
 
 	awful.key({modkey}, "p", function()
