@@ -62,6 +62,7 @@ set encoding=UTF-8
 set mouse=a
 set tabstop=4
 set shiftwidth=4
+set expandtab
 
 " Reload file when changed externally
 set autoread
@@ -232,6 +233,9 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Add `:Header` command to switch between header and source
 command! -nargs=0 Header :call 	CocAction('runCommand', 'clangd.switchSourceHeader')
+
+" Add `:Hints` command
+command! -nargs=0 Hints :call 	CocAction('runCommand', 'clangd.inlayHints.toggle')
 
 " Coc explorer shizz
 let g:coc_explorer_global_presets = {
