@@ -44,7 +44,7 @@ return {
 		-- Keyboard map
 		"/usr/bin/setxkbmap -option 'caps:swapescape'",
 		-- Nextcloud
-		"nextcloud",
+		"nextcloud --background",
 		-- Libinput gestures
 		"libinput-gestures-setup autostart start",
 	},
