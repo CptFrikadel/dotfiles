@@ -219,8 +219,9 @@ awful.screen.connect_for_each_screen(function(s)
 	})
 
 	-- Make toogle button
-	local dashboard_show = function()
+	local dashboard_show = function(s)
 		dashboard.visible = true
+		dashboard.screen = s
 		slide.target = dpi(60)
 		dashboard:emit_signal("opened")
 	end

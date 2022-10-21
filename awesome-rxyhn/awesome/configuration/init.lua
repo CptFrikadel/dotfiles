@@ -83,9 +83,9 @@ machi.editor.nested_layouts = {
 tag.connect_signal("request::default_layouts", function()
 	awful.layout.append_default_layouts({
 		awful.layout.suit.tile,
+		mstab,
 		awful.layout.suit.floating,
 		centered,
-		mstab,
 		horizontal,
 		machi.default_layout,
 		equal,

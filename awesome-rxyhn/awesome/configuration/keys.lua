@@ -166,9 +166,6 @@ awful.keyboard.append_global_keybindings({
 	awful.key({ modkey, shift }, "d", function()
 		dashboard:toggle()
 	end, { description = "toggle dashboard", group = "awesome" }),
-	awful.key({ modkey, shift }, "t", function()
-		systray_toggle()
-	end, { description = "toggle systray", group = "awesome" }),
 	awful.key({ modkey }, "grave", function()
 		awful.spawn.with_shell(apps.default.music_player)
 	end, { description = "open music client", group = "awesome" }),
@@ -220,12 +217,12 @@ awful.keyboard.append_global_keybindings({
 	end, { description = "select previous layout", group = "layout" }),
 
 	-- Tag
-	awful.key({ modkey, alt }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
-	awful.key({ modkey, alt }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
+	awful.key({ modkey, alt}, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
+	awful.key({ modkey, alt}, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key({ modkey }, "Escape", awful.tag.history.restore, { description = "go back", group = "tag" }),
 
 	-- Set Layout
-	awful.key({ modkey, "Control" }, "w", function()
+	awful.key({ modkey, shift}, "w", function()
 		awful.layout.set(awful.layout.suit.max)
 	end, { description = "set max layout", group = "tag" }),
 	awful.key({ modkey }, "s", function()
@@ -234,6 +231,9 @@ awful.keyboard.append_global_keybindings({
 	awful.key({ modkey, shift }, "s", function()
 		awful.layout.set(awful.layout.suit.floating)
 	end, { description = "set floating layout", group = "tag" }),
+	awful.key({ modkey, shift }, "t", function()
+		awful.layout.set(bling.layout.mstab)
+	end, { description = "set mstab layout", group = "tag" }),
 
 	--Client
 	awful.key({ modkey, "Control" }, "n", function()
