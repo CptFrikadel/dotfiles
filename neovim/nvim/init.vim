@@ -14,8 +14,6 @@ filetype off                  " required
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.nvim/plugged')
 
-
-Plug 'VundleVim/Vundle.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'git://git.wincent.com/command-t.git'
 Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -24,11 +22,7 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'lervag/vimtex'
 Plug 'ebranlard/vim-matlab-behave'
-Plug 'justinmk/vim-syntax-extra'
-Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'mkitt/tabline.vim'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'dracula/vim', {'as':'dracula'}
 Plug 'ap/vim-css-color'
 Plug 'jreybert/vimagit'
