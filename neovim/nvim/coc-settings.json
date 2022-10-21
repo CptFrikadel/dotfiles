@@ -1,4 +1,7 @@
 {
+	"suggest.virtualText": true,
+	"suggest.noselect": true,
+
 	"clangd.arguments":["-background-index"],
 
 	"python.linting.enabled": true,
