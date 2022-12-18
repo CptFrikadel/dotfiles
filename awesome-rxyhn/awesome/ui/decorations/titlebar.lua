@@ -163,7 +163,7 @@ client.connect_signal("request::titlebars", function(c)
 
 	-- Titlebars setup
 	--------------------
-	awful.titlebar(c, { position = "left", size = dpi(36), bg = beautiful.transparent }):setup({
+	awful.titlebar(c, { position = "left", size = dpi(30), bg = beautiful.transparent }):setup({
 		{
 			layout = wibox.layout.align.vertical,
 			{

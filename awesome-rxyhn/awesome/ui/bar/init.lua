@@ -97,8 +97,8 @@ awful.screen.connect_for_each_screen(function(s)
 		ontop = true,
 		stretch = false,
 		visible = true,
-		height = dpi(40),
-		width = s.geometry.width - dpi(0),
+		height = dpi(35),
+		width = s.geometry.width, -- - beautiful.useless_gap * 2,
 		screen = s,
 		bg = beautiful.transparent,
 	})
@@ -106,7 +106,7 @@ awful.screen.connect_for_each_screen(function(s)
 	awful.placement.top(s.mywibar, { margins = beautiful.useless_gap * 0 })
 
 	s.mywibar:struts({
-		top = dpi(40),
+		top = dpi(35),
 	})
 
 	-- Remove wibar on full screen

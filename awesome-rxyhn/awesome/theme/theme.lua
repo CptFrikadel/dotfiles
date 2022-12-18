@@ -122,7 +122,7 @@ theme.widget_border_width = dpi(2)
 theme.widget_border_color = theme.darker_bg
 
 -- Corner Radius
-theme.corner_radius = dpi(6)
+theme.corner_radius = dpi(4)
 theme.client_radius = theme.corner_radius
 theme.dashboard_radius = theme.corner_radius
 theme.widget_radius = theme.corner_radius
@@ -177,7 +177,7 @@ theme.layoutlist_bg_selected = theme.lighter_bg
 theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
-theme.useless_gap = dpi(5)
+theme.useless_gap = dpi(3)
 
 -- Dock
 theme.dock_bg = theme.wibar_bg
@@ -189,7 +189,7 @@ theme.bg_systray = theme.wibar_bg
 theme.systray_icon_spacing = dpi(16)
 
 -- Tabs
-theme.mstab_bar_height = dpi(60)
+theme.mstab_bar_height = dpi(36)
 theme.mstab_bar_padding = dpi(0)
 theme.mstab_border_radius = theme.corner_radius
 theme.tabbar_disable = false
@@ -200,7 +200,7 @@ theme.tabbar_fg_focus = theme.xforeground
 theme.tabbar_fg_normal = theme.xforeground
 theme.tabbar_position = "top"
 theme.tabbar_AA_radius = 0
-theme.tabbar_size = 40
+theme.tabbar_size = 32
 theme.mstab_bar_ontop = true
 
 -- Notifications
