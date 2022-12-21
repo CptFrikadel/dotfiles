@@ -30,7 +30,7 @@ return {
 	-- List of apps to start once on start-up
 	run_on_start_up = {
 		-- Compositor
-		"picom -b --experimental-backends --config " .. config_dir .. "/configuration/picom.conf",
+		"picom -b --config " .. config_dir .. "/configuration/picom.conf",
 		-- Network Manager applet
 		"nm-applet",
 		-- Blueman applet
