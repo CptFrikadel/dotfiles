@@ -4,7 +4,6 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
   'clangd',
-  'sumneko_lua'
 })
 
 local cmp = require('cmp')
