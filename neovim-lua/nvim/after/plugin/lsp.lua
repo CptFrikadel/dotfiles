@@ -6,16 +6,33 @@ lsp.ensure_installed({
   'clangd',
 })
 
+
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+end
+
 local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select}
+local cmp_select = { behavior = cmp.SelectBehavior.Insert}
 local cmp_mappings = lsp.defaults.cmp_mappings({
 	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
 	['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
 	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
 	['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-y>'] = cmp.mapping.confirm({ select = true }),
-	['<C-space>'] = cmp.mapping.complete(),
+	['<C-space>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert,  select = true }),
+
+	['<Tab>'] = function(fallback)
+	    if not cmp.select_next_item() then
+		if vim.bo.buftype ~= 'prompt' and has_words_before() then
+		    cmp.complete()
+		else
+		    fallback()
+		end
+	    end
+	end,
 })
+
 
 lsp.set_preferences({
 	sign_icons = { }
