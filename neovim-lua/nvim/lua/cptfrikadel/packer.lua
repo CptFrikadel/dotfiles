@@ -88,5 +88,6 @@ return require('packer').startup(function(use)
   use('airblade/vim-gitgutter')
   use('tpope/vim-sleuth')
   use('Yggdroot/indentLine')
+  use('tpope/vim-obsession')
 
 end)
