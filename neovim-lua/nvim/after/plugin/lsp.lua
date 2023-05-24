@@ -6,6 +6,16 @@ lsp.ensure_installed({
   'clangd',
 })
 
+require'lspconfig'.lua_ls.setup {
+    -- ... other configs
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim', 'tex' }
+            }
+        }
+    }
+}
 
 local has_words_before = function()
   unpack = unpack or table.unpack
