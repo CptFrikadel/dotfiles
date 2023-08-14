@@ -16,3 +16,5 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.autoread = true
 
+vim.opt.conceallevel = 3
+vim.opt.concealcursor = "c"
