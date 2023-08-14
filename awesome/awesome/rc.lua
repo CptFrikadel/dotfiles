@@ -24,6 +24,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
                       require("awful.hotkeys_popup.keys")
 local mytable       = awful.util.table or gears.table -- 4.{0,1} compatibility
 
+local bling = require("bling")
+
 
 -- }}}
 
@@ -102,11 +104,11 @@ local themes = {
 local chosen_theme = themes[6]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "alacritty"
+local terminal     = "wezterm"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
-local browser      = "brave"
+local browser      = "firefox"
 
 
 local script_dir = os.getenv( "HOME" ) .. "/.scripts/"
@@ -116,6 +118,9 @@ awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
+    awful.layout.suit.max,
+    bling.layout.mstab,
+    bling.layout.centered,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
@@ -123,7 +128,6 @@ awful.layout.layouts = {
     --awful.layout.suit.fair.horizontal,
     --awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
-    --awful.layout.suit.max,
     --awful.layout.suit.max.fullscreen,
     --awful.layout.suit.magnifier,
     --awful.layout.suit.corner.nw,
@@ -358,6 +362,10 @@ globalkeys = mytable.join(
     awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -show drun") end,
               {description = "Rofi drun", group = "launcher"}),
 
+    -- Lock
+    awful.key({ modkey, altkey },            "l",     function () awful.util.spawn("i3lock-fancy") end,
+              {description = "Lock screen", group = "awesome"}),
+
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run {
@@ -404,9 +412,9 @@ globalkeys = mytable.join(
               {description="Toggle Redshift", group="Misc"}),
 
     -- Multimedia Keys
-    awful.key({ }, "XF86AudioPlay", function () awful.spawn("playerctl play-pause") end),
-    awful.key({ }, "XF86AudioNext", function () awful.spawn("playerctl next") end),
-    awful.key({ }, "XF86AudioPrev", function () awful.spawn("playerctl previous") end),
+    awful.key({ }, "XF86AudioPlay", function () awful.spawn("playerctl -a play-pause") end),
+    awful.key({ }, "XF86AudioNext", function () awful.spawn("playerctl -a next") end),
+    awful.key({ }, "XF86AudioPrev", function () awful.spawn("playerctl -a previous") end),
 
     awful.key({}, "XF86AudioRaiseVolume", function() os.execute("pactl set-sink-volume 1 +5%") end),
     awful.key({}, "XF86AudioLowerVolume", function() os.execute("pactl set-sink-volume 1 -5%") end),
@@ -665,11 +673,10 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 --
 
 -- AutoStart
-awful.spawn.with_shell("setxkbmap -option caps:escape")
+
 awful.spawn.with_shell("setxkbmap -option compose:ralt")
 awful.spawn.with_shell("systemctl --user stop redshift-gtk.service")
-awful.spawn.with_shell("compton")
-awful.spawn.with_shell("dropbox start")
+awful.spawn.with_shell("picom")
 -- awful.spawn.with_shell("nitrogen --restore")
 
 
