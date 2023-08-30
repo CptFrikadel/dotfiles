@@ -75,7 +75,7 @@ return require('packer').startup(function(use)
 
 		  -- Snippets
 		  {'L3MON4D3/LuaSnip'},
-		  {'rafamadriz/friendly-snippets'},
+		  --{'rafamadriz/friendly-snippets'},
 	  }
   }
 
@@ -89,5 +89,6 @@ return require('packer').startup(function(use)
   use('tpope/vim-sleuth')
   use('Yggdroot/indentLine')
   use('tpope/vim-obsession')
+  use('rhysd/vim-clang-format')
 
 end)

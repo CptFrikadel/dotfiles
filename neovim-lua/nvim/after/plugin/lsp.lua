@@ -27,9 +27,9 @@ local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Insert}
 local cmp_mappings = lsp.defaults.cmp_mappings({
 	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+	--['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
 	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+	--['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
 	['<C-space>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert,  select = true }),
 
 	['<Tab>'] = function(fallback)
@@ -44,12 +44,25 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 })
 
 
-lsp.set_preferences({
-	sign_icons = { }
+-- Call cmp.setup directly instead of using lsp's wrapper
+cmp.setup({
+	mapping = cmp_mappings,
+	sources = cmp.config.sources({
+	    { name = "nvim_lua" },
+	    { name = "nvim_lsp" },
+	    { name = "path" },
+	    { name = "luasnip" },
+	    { name = "buffer", keyword_length = 5 },
+	}),
+	snippet = {
+	    expand = function(args)
+		require("luasnip").lsp_expand(args.body)
+	    end,
+	},
 })
 
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings
+lsp.set_preferences({
+	sign_icons = { }
 })
 
 lsp.on_attach(function(client, buffnr)
