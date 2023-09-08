@@ -324,6 +324,8 @@ globalkeys = mytable.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey,           }, "e", function () awful.spawn(terminal) end,
+              {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     -- awful.key({ modkey, "Shift"   }, "q", awesome.quit,
@@ -377,8 +379,8 @@ globalkeys = mytable.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+    --awful.key({ modkey }, "p", function() menubar.show() end,
+              --{description = "show the menubar", group = "launcher"}),
               --
     -- Applications
     awful.key({ modkey },            "F1",     function () awful.util.spawn(terminal .." -e ranger") end,
@@ -413,8 +415,11 @@ globalkeys = mytable.join(
 
     -- Multimedia Keys
     awful.key({ }, "XF86AudioPlay", function () awful.spawn("playerctl -a play-pause") end),
+    awful.key({modkey, }, "p", function () awful.spawn("playerctl -a play-pause") end),
     awful.key({ }, "XF86AudioNext", function () awful.spawn("playerctl -a next") end),
+    awful.key({modkey, }, "]", function () awful.spawn("playerctl -a next") end),
     awful.key({ }, "XF86AudioPrev", function () awful.spawn("playerctl -a previous") end),
+    awful.key({modkey, }, "[", function () awful.spawn("playerctl -a previous") end),
 
     awful.key({}, "XF86AudioRaiseVolume", function() os.execute("pactl set-sink-volume 1 +5%") end),
     awful.key({}, "XF86AudioLowerVolume", function() os.execute("pactl set-sink-volume 1 -5%") end),
