@@ -255,7 +255,7 @@ theme "catppuccin-frappe"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-// default_layout "compact"
+default_layout "compact"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
@@ -317,7 +317,7 @@ copy_command "xclip -selection clipboard" // x11
 
 // The folder in which Zellij will look for layouts
 //
-// layout_dir "/path/to/my/layout_dir"
+layout_dir "~/.config/zellij/layouts"
 
 // The folder in which Zellij will look for themes
 //
