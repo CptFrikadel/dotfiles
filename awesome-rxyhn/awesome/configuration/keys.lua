@@ -24,6 +24,9 @@ awful.keyboard.append_global_keybindings({
 	awful.key({ modkey }, "Return", function()
 		awful.spawn(apps.default.terminal)
 	end, { description = "open terminal", group = "launcher" }),
+	awful.key({ modkey }, "Return", function()
+		awful.spawn(apps.default.terminal)
+	end, { description = "open terminal", group = "launcher" }),
 	awful.key({ modkey, shift }, "e", function()
 		awful.spawn(apps.default.code_editor)
 	end, { description = "open code editor", group = "launcher" }),
@@ -161,6 +164,7 @@ awful.keyboard.append_global_keybindings({
 -- Awesome stuff
 awful.keyboard.append_global_keybindings({
 	awful.key({ modkey }, "F1", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
+	awful.key({ modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ modkey, ctrl }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
 	awful.key({ modkey, ctrl }, "q", awesome.quit, { description = "quit awesome", group = "awesome" }),
 	awful.key({ modkey, shift }, "d", function()
