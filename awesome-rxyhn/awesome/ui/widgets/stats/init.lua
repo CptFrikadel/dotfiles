@@ -100,12 +100,12 @@ awesome.connect_signal("signal::volume", function(value, muted)
 
 	vol.slider.value = vol_value
 	vol.slider.color = fill_color
-	vol_tooltip.markup = helpers.colorize_text(vol_value .. "%", vol_color)
+	vol_tooltip.markup = helpers.colorize_text("Vol " .. vol_value .. "%", vol_color)
 end)
 
 awesome.connect_signal("signal::brightness", function(value)
 	brightness.slider.value = value
-	brightness_tooltip.markup = helpers.colorize_text(value .. "%", brightness_color)
+	brightness_tooltip.markup = helpers.colorize_text("Brt " .. value .. "%", brightness_color)
 end)
 
 watch(
@@ -120,7 +120,7 @@ watch(
 
 		local value = 100 - tonumber(cpu_idle)
 		cpu.slider.value = value
-		cpu_tooltip.markup = helpers.colorize_text(value .. "%", cpu_color)
+		cpu_tooltip.markup = helpers.colorize_text("CPU " .. value .. "%", cpu_color)
 	end
 )
 
@@ -139,7 +139,7 @@ watch(
 		local r_used = string.format("%.1f", used / 1000) .. "G"
 
 		ram.slider.value = r_average
-		ram_tooltip.markup = helpers.colorize_text(r_used, ram_color)
+		ram_tooltip.markup = helpers.colorize_text("RAM " .. r_used, ram_color)
 		collectgarbage("collect")
 	end
 )
