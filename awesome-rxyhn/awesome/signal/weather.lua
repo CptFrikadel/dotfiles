@@ -7,6 +7,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local helpers = require("helpers")
 local config = require("configuration.config")
+local json = require("module.json")
 
 -- Configuration
 local key = config.widget.weather.key
@@ -52,50 +53,35 @@ local weather_icons = {
 	["_"] = { icon = whatever_icon, color = beautiful.xcolor2 },
 }
 
-local weather_details_script = [[
-    bash -c '
-    KEY="]] .. key .. [["
-    CITY="]] .. city_id .. [["
-    UNITS="]] .. units .. [["
 
-    weather=$(curl -sf "http://api.openweathermap.org/data/2.5/weather?APPID=$KEY&id=$CITY&units=$UNITS")
+local request_url = "http://api.openweathermap.org/data/2.5/weather?APPID=" .. key .. "&id=" .. city_id .. "&units=" .. units
+local get_forecast_cmd = [[bash -c "curl -sf --show-error '%s'"]]
 
-    if [ ! -z "$weather" ]; then
-        weather_temp=$(echo "$weather" | jq ".main.temp" | cut -d "." -f 1)
-        weather_icon=$(echo "$weather" | jq -r ".weather[].icon" | head -1)
-        weather_description=$(echo "$weather" | jq -r ".weather[].description" | head -1)
+helpers.remote_watch(string.format(get_forecast_cmd, request_url), update_interval, temp_file, function(stdout)
 
-        echo "$weather_icon" "$weather_description"@@"$weather_temp"
-    else
-        echo "..."
-    fi
-  ']]
-
-helpers.remote_watch(weather_details_script, update_interval, temp_file, function(stdout)
-	local icon_code = string.sub(stdout, 1, 3)
-	local weather_details = string.sub(stdout, 5)
-	weather_details = string.gsub(weather_details, "^%s*(.-)%s*$", "%1")
-	-- Replace "-0" with "0" degrees
-	weather_details = string.gsub(weather_details, "%-0", "0")
-	-- Capitalize first letter of the description
-	weather_details = weather_details:sub(1, 1):upper() .. weather_details:sub(2)
-	local description = weather_details:match("(.*)@@")
-	local temperature = weather_details:match("@@(.*)")
 	local icon
 	local color
 	local weather_icon
 
-	if icon_code == "..." then
-		-- Remove temp_file to force an update the next time
-		awful.spawn.with_shell("rm " .. temp_file)
-		icon = weather_icons["_"].icon
-		color = weather_icons["_"].color
-		weather_icon = helpers.colorize_text(icon, color)
-		awesome.emit_signal("signal::weather", 999, "Weather unavailable", weather_icon)
-	else
-		icon = weather_icons[icon_code].icon
-		color = weather_icons[icon_code].color
-		weather_icon = helpers.colorize_text(icon, color)
-		awesome.emit_signal("signal::weather", tonumber(temperature), description, weather_icon)
+	local status, result = pcall(json.decode, stdout)
+	
+	if status == false then
+	    -- remove temp_file to for
+	    awful.spawn.with_shell("rm " .. temp_file)
+	    icon = weather_icons["_"].icon
+	    color = weather_icons["_"].color
+	    weather_icon = helpers.colorize_text(icon, color)
+	    awesome.emit_signal("signal::weather", 999, "weather unavailable", weather_icon)
+	    return
 	end
+
+	local icon_code = result.weather[1].icon
+
+	local description = result.weather[1].description:gsub("^%l", string.upper)
+	local temperature = math.floor(result.main.temp)
+
+	icon = weather_icons[icon_code].icon
+	color = weather_icons[icon_code].color
+	weather_icon = helpers.colorize_text(icon, color)
+	awesome.emit_signal("signal::weather", tonumber(temperature), description, weather_icon)
 end)
