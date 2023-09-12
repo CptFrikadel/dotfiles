@@ -100,6 +100,10 @@ awful.keyboard.append_global_keybindings({
 		awful.spawn("brightnessctl set 5%- -q")
 	end, { description = "decrease brightness", group = "hotkeys" }),
 
+	awful.key({ modkey, shift }, "r", function()
+		awesome.emit_signal("widget::blue_light:toggle")
+	end, { description = "Toggle Blue Light filter", group = "hotkeys" }),
+
 	-- Volume control
 	awful.key({}, "XF86AudioRaiseVolume", function()
 		awful.spawn("pamixer -i 5")
