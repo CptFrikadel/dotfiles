@@ -24,7 +24,7 @@ awful.keyboard.append_global_keybindings({
 	awful.key({ modkey }, "Return", function()
 		awful.spawn(apps.default.terminal)
 	end, { description = "open terminal", group = "launcher" }),
-	awful.key({ modkey }, "Return", function()
+	awful.key({ modkey }, "e", function()
 		awful.spawn(apps.default.terminal)
 	end, { description = "open terminal", group = "launcher" }),
 	awful.key({ modkey, shift }, "e", function()

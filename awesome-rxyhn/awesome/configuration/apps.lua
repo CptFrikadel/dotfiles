@@ -6,7 +6,7 @@ return {
 	-- Default Applications
 	default = {
 		-- Default terminal emulator
-		terminal = "wezterm",
+		terminal = "alacritty",
 		-- Defalut music client
 		music_player = "alacritty --class music -e ncmpcpp",
 		-- Default text editor
