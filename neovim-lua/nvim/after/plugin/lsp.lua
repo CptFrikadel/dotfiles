@@ -6,17 +6,6 @@ lsp.ensure_installed({
   'clangd',
 })
 
-require'lspconfig'.lua_ls.setup {
-    -- ... other configs
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim', 'tex' }
-            }
-        }
-    }
-}
-
 local has_words_before = function()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -95,4 +84,21 @@ vim.diagnostic.config({
      -- } 
  })
 
+
+require'lspconfig'.lua_ls.setup({
+    settings = {
+	Lua = {
+	    diagnostics = {
+		globals = { 'vim' }
+	    },
+	    workspace = {
+		-- make language server aware of runtime files
+		library = {
+		    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+		    [vim.fn.stdpath("config") .. "/lua"] = true,
+		},
+	    },
+	}
+    }
+})
 
