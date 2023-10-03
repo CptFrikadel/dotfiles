@@ -96,5 +96,6 @@ return require('packer').startup(function(use)
   use('Yggdroot/indentLine')
   use('tpope/vim-obsession')
   use('rhysd/vim-clang-format')
+  use('stevearc/dressing.nvim')
 
 end)
