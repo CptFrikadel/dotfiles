@@ -109,6 +109,13 @@ keybinds {
     session {
         bind "Ctrl o" { SwitchToMode "Normal"; }
         bind "Ctrl s" { SwitchToMode "Scroll"; }
+        bind "w" {
+            LaunchOrFocusPlugin "zellij:session-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
         bind "d" { Detach; }
     }
     tmux {
@@ -140,6 +147,13 @@ keybinds {
         bind "7" { GoToTab 7; SwitchToMode "Locked"; }
         bind "8" { GoToTab 8; SwitchToMode "Locked"; }
         bind "9" { GoToTab 9; SwitchToMode "Locked"; }
+        bind "s" {
+            LaunchOrFocusPlugin "zellij:session-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Locked"
+        }
         bind "Space" { NextSwapLayout; }
         bind "x" { CloseFocus; SwitchToMode "Locked"; }
     }
