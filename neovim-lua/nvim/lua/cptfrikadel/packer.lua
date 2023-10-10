@@ -97,5 +97,6 @@ return require('packer').startup(function(use)
   use('tpope/vim-obsession')
   use('rhysd/vim-clang-format')
   use('stevearc/dressing.nvim')
+  use('tpope/vim-dispatch')
 
 end)
