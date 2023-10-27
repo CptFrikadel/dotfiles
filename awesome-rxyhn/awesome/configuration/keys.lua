@@ -34,7 +34,7 @@ awful.keyboard.append_global_keybindings({
 		awful.spawn(apps.default.file_manager)
 	end, { description = "open file manager", group = "launcher" }),
 	awful.key({ modkey }, "r", function()
-		awful.spawn("alacritty -e ranger")
+		awful.spawn("wezterm start -- ranger")
 	end, { description = "open ranger", group = "launcher" }),
 	awful.key({ modkey }, "b", function()
 		awful.spawn(apps.default.web_browser)

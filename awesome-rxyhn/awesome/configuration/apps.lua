@@ -6,13 +6,13 @@ return {
 	-- Default Applications
 	default = {
 		-- Default terminal emulator
-		terminal = "alacritty",
+		terminal = "wezterm",
 		-- Defalut music client
-		music_player = "alacritty --class music -e ncmpcpp",
+		music_player = "wezterm --class music -e ncmpcpp",
 		-- Default text editor
-		text_editor = "alacritty -e nvim",
+		text_editor = "wezterm -e nvim",
 		-- Default code editor
-		code_editor = "alacritty -e nvim",
+		code_editor = "wezterm -e nvim",
 		-- Default web browser
 		web_browser = "brave",
 		-- Default file manager
