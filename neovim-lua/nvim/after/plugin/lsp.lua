@@ -38,6 +38,12 @@ cmp.setup({
 	mapping = cmp_mappings,
 	sources = cmp.config.sources({
 	    { name = "nvim_lua" },
+	    { name = "ctags" ,
+		option = {
+		    executable = "ctags",
+		    trigger_characters_ft = { c = {".", "->"}, },
+		}
+	    },
 	    { name = "nvim_lsp" },
 	    { name = "path" },
 	    { name = "luasnip" },
