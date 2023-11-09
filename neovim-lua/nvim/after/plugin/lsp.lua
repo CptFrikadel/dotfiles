@@ -14,15 +14,18 @@ end
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Insert}
-local cmp_mappings = lsp.defaults.cmp_mappings({
+local cmp_mappings = cmp.mapping.preset.insert({
 	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+	['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
 	--['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
 	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+	--['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
 	--['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-space>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert,  select = true }),
+	['<C-space>'] = cmp.mapping.confirm({ select = true }),
+	['<CR>'] = cmp.mapping.confirm({ select = true }),
 
 	['<Tab>'] = function(fallback)
-	    if not cmp.select_next_item() then
+	  if not cmp.select_next_item() then
 		if vim.bo.buftype ~= 'prompt' and has_words_before() then
 		    cmp.complete()
 		else
