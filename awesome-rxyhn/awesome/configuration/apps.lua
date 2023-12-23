@@ -16,7 +16,7 @@ return {
 		-- Default web browser
 		web_browser = "brave",
 		-- Default file manager
-		file_manager = "nautilus",
+		file_manager = "thunar",
 		-- Default network manager
 		network_manager = "networkmanager_dmenu",
 		-- Default bluetooth manager
