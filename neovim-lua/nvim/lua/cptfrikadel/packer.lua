@@ -99,6 +99,7 @@ return require('packer').startup(function(use)
   use('rhysd/vim-clang-format')
   use('stevearc/dressing.nvim')
   use('tpope/vim-dispatch')
+  use('mbbill/undotree')
 
   use({
 	  "iamcco/markdown-preview.nvim",
