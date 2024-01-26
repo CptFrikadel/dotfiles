@@ -42,7 +42,7 @@ return {
 		-- Polkit and keyring
 		"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &",
 		-- Keyboard map
-		"/usr/bin/setxkbmap -option 'caps:swapescape'",
+		"/usr/bin/setxkbmap -option 'caps:escape' -option 'compose:ralt'",
 		-- Nextcloud
 		"nextcloud --background",
 		-- Libinput gestures
