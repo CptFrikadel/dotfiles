@@ -142,12 +142,13 @@ local monitor_control_row_progressbars = wibox.widget({
 })
 
 awful.screen.connect_for_each_screen(function(s)
+
 	local control_center_width = dpi(400)
 
 	-- control_center and animations init
 	control_center = awful.popup({
 		type = "dock",
-		screen = s,
+		screen = awful.screen.focused(),
 		width = dpi(control_center_width),
 		maximum_width = dpi(control_center_width),
 		maximum_height = dpi(s.geometry.height - 38),
@@ -194,7 +195,7 @@ awful.screen.connect_for_each_screen(function(s)
 
 	awful.placement.top_right(control_center, {
 		honor_workarea = true,
-		parent = s,
+		parent = awful.screen.primary,
 		margins = {
 			top = dpi(60),
 			right = dpi(15),

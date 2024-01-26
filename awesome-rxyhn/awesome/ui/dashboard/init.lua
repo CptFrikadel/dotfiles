@@ -6,6 +6,7 @@ local dpi = xresources.apply_dpi
 local wibox = require("wibox")
 local rubato = require("module.rubato")
 local helpers = require("helpers")
+local naughty = require("naughty")
 
 -- Aesthetic Dashboard
 -------------------------
@@ -221,7 +222,7 @@ awful.screen.connect_for_each_screen(function(s)
 	-- Make toogle button
 	local dashboard_show = function(s)
 		dashboard.visible = true
-		dashboard.screen = s
+		dashboard.screen = awful.screen.focused()
 		slide.target = dpi(60)
 		dashboard:emit_signal("opened")
 	end
