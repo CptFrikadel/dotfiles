@@ -106,8 +106,9 @@ return require('packer').startup(function(use)
 	  run = function() vim.fn["mkdp#util#install"]() end,
   })
 
+  use({'https://gitlab.com/schrieveslaach/sonarlint.nvim', as = 'sonarlint.nvim'})
+  use({'mtdl9/vim-log-highlighting'})
+
   use({'folke/zen-mode.nvim'})
   use({'folke/trouble.nvim'})
-
-
 end)
