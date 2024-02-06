@@ -69,6 +69,32 @@ ls.add_snippets("lua", {
 	),
 })
 
+ls.add_snippets("cpp", {
+	s("ctst",
+	fmta([[void CTest::<name>(uint32_t location)
+{
+  auto loc = GetContext().GetLocationContext(location);
+  auto dut = GetContext().GetDut(location);
+
+  <finish>
+}]], {
+		name = i(1),
+		finish = i(0),
+     })
+    ),
+	s("tst",
+	fmta([[void <name>(uint32_t location);]], {name = i(1)})
+	),
+	s("atst",
+	fmta([[root.AddTestStep("<name>", <duration>).Set(&CTest::<func>);]],
+		{
+			name = i(1),
+			duration = i(2),
+			func = i(3),
+		})
+	),
+})
+
 ls.add_snippets("tex", {
 	s("new",
 		fmta([[\NEW{<text>}<finish>]], {
