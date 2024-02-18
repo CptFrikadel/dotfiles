@@ -233,9 +233,6 @@ awful.keyboard.append_global_keybindings({
 	awful.key({ modkey, shift}, "w", function()
 		awful.layout.set(awful.layout.suit.max)
 	end, { description = "set max layout", group = "tag" }),
-	awful.key({ modkey }, "s", function()
-		awful.layout.set(awful.layout.suit.tile)
-	end, { description = "set tile layout", group = "tag" }),
 	awful.key({ modkey, shift }, "s", function()
 		awful.layout.set(awful.layout.suit.floating)
 	end, { description = "set floating layout", group = "tag" }),
@@ -350,7 +347,7 @@ awful.keyboard.append_global_keybindings({
 		end,
 	}),
 	awful.key({
-		modifiers = { modkey, "Control" },
+		modifiers = { modkey, shift, "Control" },
 		keygroup = "numrow",
 		description = "toggle tag",
 		group = "tag",
@@ -377,7 +374,7 @@ awful.keyboard.append_global_keybindings({
 		end,
 	}),
 	awful.key({
-		modifiers = { modkey, "Control", shift },
+		modifiers = { modkey, "Control" },
 		keygroup = "numrow",
 		description = "toggle focused client on tag",
 		group = "tag",
