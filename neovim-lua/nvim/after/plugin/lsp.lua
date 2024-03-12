@@ -21,8 +21,8 @@ local cmp_mappings = cmp.mapping.preset.insert({
 	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
 	--['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
 	--['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-space>'] = cmp.mapping.confirm({ select = true }),
-	['<CR>'] = cmp.mapping.confirm({ select = true }),
+	['<C-space>'] = cmp.mapping.confirm({ select = false }),
+	['<CR>'] = cmp.mapping.confirm({ select = false }),
 
 	['<Tab>'] = function(fallback)
 	  if not cmp.select_next_item() then
@@ -64,6 +64,20 @@ lsp.set_preferences({
 })
 
 lsp.on_attach(function(client, buffnr)
+
+    --- Guard against servers without the signatureHelper capability
+    if client.server_capabilities.signatureHelpProvider then
+	require('lsp-overloads').setup(client, {
+	    keymaps = {
+		next_signature = "<C-j>",
+		previous_signature = "<C-k>",
+		next_parameter = "<C-l>",
+		previous_parameter = "<C-h>",
+		close_signature = "<A-s>"
+	    },
+	})
+    end
+
     local opts = {buffer = buffnr, remap = false}
 
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
