@@ -85,6 +85,7 @@ ls.add_snippets("cpp", {
 	s("tst",
 	fmta([[void <name>(uint32_t location);]], {name = i(1)})
 	),
+
 	s("atst",
 	fmta([[root.AddTestStep("<name>", <duration>).Set(&CTest::<func>);]],
 		{
@@ -92,6 +93,28 @@ ls.add_snippets("cpp", {
 			duration = i(2),
 			func = i(3),
 		})
+	),
+
+	s("ifabort",
+	fmta([[if (!<expression>)
+{
+  X_INTERNAL("<what>");
+}]],
+	{
+		expression = i(1),
+		what = i(2),
+	})
+	),
+	s("iffail",
+	fmta([[if (!<expression>)
+{
+  Report::Failure("<what>");
+  return false;
+}]],
+	{
+		expression = i(1),
+		what = i(2),
+	})
 	),
 })
 
