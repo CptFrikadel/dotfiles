@@ -17,12 +17,12 @@ local cmp_select = { behavior = cmp.SelectBehavior.Insert}
 local cmp_mappings = cmp.mapping.preset.insert({
 	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
 	['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
-	--['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
 	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-	--['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-	--['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-space>'] = cmp.mapping.confirm({ select = false }),
+	['<C-Space>'] = cmp.mapping.confirm({ select = false }),
 	['<CR>'] = cmp.mapping.confirm({ select = false }),
+
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
 	['<Tab>'] = function(fallback)
 	  if not cmp.select_next_item() then
