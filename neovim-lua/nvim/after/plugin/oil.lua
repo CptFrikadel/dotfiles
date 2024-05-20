@@ -61,6 +61,7 @@ require("oil").setup({
     ["<C-s>"] = "actions.select_vsplit",
     ["<C-h>"] = "actions.select_split",
     ["<C-t>"] = "actions.select_tab",
+    ["<C-p>"] = false,
     ["gp"] = "actions.preview",
     ["<C-c>"] = "actions.close",
     ["<C-l>"] = "actions.refresh",
@@ -175,3 +176,5 @@ require("oil").setup({
     border = "rounded",
   },
 })
+
+vim.keymap.set("n", "<leader>pv", function () require("oil").open(vim.fn.expand('%:p:h')) end)
