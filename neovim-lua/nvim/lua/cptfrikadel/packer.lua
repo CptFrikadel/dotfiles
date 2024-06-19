@@ -116,5 +116,6 @@ return require('packer').startup(function(use)
   use({'nvim-tree/nvim-web-devicons'})
   use({'Issafalcon/lsp-overloads.nvim'})
   use({ "stevearc/oil.nvim"})
+  use({ "danymat/neogen"})
 
 end)
