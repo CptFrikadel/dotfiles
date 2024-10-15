@@ -178,3 +178,4 @@ require("oil").setup({
 })
 
 vim.keymap.set("n", "<leader>pv", function () require("oil").open(vim.fn.expand('%:p:h')) end)
+vim.keymap.set("n", "-", function () require("oil").open(vim.fn.expand('%:p:h')) end)

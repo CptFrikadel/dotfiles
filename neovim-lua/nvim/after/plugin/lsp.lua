@@ -1,9 +1,15 @@
 local lsp = require("lsp-zero")
 
-lsp.preset("recommended")
+local lspconfig_defaults = require('lspconfig').util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lspconfig_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
 
-lsp.ensure_installed({
-  'clangd',
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {'lua_ls'},
 })
 
 local has_words_before = function()
@@ -59,24 +65,13 @@ cmp.setup({
 	},
 })
 
-lsp.set_preferences({
-	sign_icons = { }
-})
-
-lsp.on_attach(function(client, buffnr)
-
-    --- Guard against servers without the signatureHelper capability
-    if client.server_capabilities.signatureHelpProvider then
-	require('lsp-overloads').setup(client, {
-	    keymaps = {
-		next_signature = "<C-j>",
-		previous_signature = "<C-k>",
-		next_parameter = "<C-l>",
-		previous_parameter = "<C-h>",
-		close_signature = "<A-s>"
-	    },
-	})
-    end
+--lsp.on_attach(function(client, buffnr)
+-- This is where you enable features that only work
+-- if there is a language server active in the file
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP actions',
+  callback = function(event)
+    local opts = {buffer = event.buf}
 
     local opts = {buffer = buffnr, remap = false}
 
@@ -92,7 +87,9 @@ lsp.on_attach(function(client, buffnr)
     vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-end)
+
+end,
+})
 
 lsp.setup()
 
