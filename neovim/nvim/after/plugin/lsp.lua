@@ -9,7 +9,7 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'lua_ls'},
+  ensure_installed = {'lua_ls', 'clangd', 'pyright'},
 })
 
 local has_words_before = function()
@@ -122,6 +122,9 @@ require'lspconfig'.lua_ls.setup({
     }
 })
 
+require'lspconfig'.pyright.setup({})
+
+require('lspconfig').clangd.setup({})
 
 require('sonarlint').setup({
    server = {
