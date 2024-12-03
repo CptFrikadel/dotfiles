@@ -78,26 +78,51 @@ config.keys = {
     }
   }
 
-wezterm.on('update-right-status', function(window, pane)
-  local is_zoomed = false
-  local our_tab = pane:tab()
-  if our_tab ~= nil then
-      for _, pane_attributes in pairs(our_tab:panes_with_info()) do
-          is_zoomed = pane_attributes['is_zoomed'] or is_zoomed
-      end
-  end
-
-  local zoomed = ''
-  if is_zoomed then
-    zoomed = ' [ZOOMED]'
-  end
-
-  window:set_right_status(window:active_workspace() .. zoomed)
-end)
+--wezterm.on('update-right-status', function(window, pane)
+--  local is_zoomed = false
+--  local our_tab = pane:tab()
+--  if our_tab ~= nil then
+--      for _, pane_attributes in pairs(our_tab:panes_with_info()) do
+--          is_zoomed = pane_attributes['is_zoomed'] or is_zoomed
+--      end
+--  end
+--
+--  local zoomed = ''
+--  if is_zoomed then
+--    zoomed = ' [ZOOMED]'
+--  end
+--
+--  window:set_right_status(window:active_workspace() .. zoomed)
+--end)
 
 local sessionizer = wezterm.plugin.require "https://github.com/mikkasendke/sessionizer.wezterm"
 sessionizer.apply_to_config(config)
 
 sessionizer.config.paths = "C:/Users/Alexander/source/repos"
+
+config.use_fancy_tab_bar = false
+
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+tabline.setup({
+  options = {
+    theme = 'Catppuccin Mocha'
+  },
+  sections = {
+    tabline_a = { },
+    tabline_b = { 'workspace' },
+    tabline_c = { ' ' },
+    tab_active = {
+      'index',
+      { 'zoomed', padding = 0 },
+      { 'parent', padding = 0 },
+      '/',
+      { 'cwd', padding = { left = 0, right = 1 } },
+    },
+    tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
+    tabline_x = { 'ram', 'cpu' },
+    tabline_y = { 'datetime', },
+    tabline_z = { },
+  },
+})
 
 return config
