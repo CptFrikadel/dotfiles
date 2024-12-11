@@ -68,6 +68,8 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
+require'treesitter-context'.setup{}
+
 
 -- Repeat last move using ; and ,
 local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
