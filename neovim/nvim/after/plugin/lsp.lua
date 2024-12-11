@@ -124,26 +124,32 @@ require'lspconfig'.lua_ls.setup({
 
 require'lspconfig'.pyright.setup({})
 
-require('lspconfig').clangd.setup({})
-
-require('sonarlint').setup({
-   server = {
-      cmd = {
-         --'sonarlint-language-server',
-         vim.fn.expand("$MASON/bin/sonarlint-language-server.cmd"),
-         -- Ensure that sonarlint-language-server uses stdio channel
-         '-stdio',
-         '-analyzers',
-         -- paths to the analyzers you need, using those for python and java in this example
-         vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
-         vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
-      }
-   },
-   filetypes = {
-      -- Tested and working
-      'python',
-      'cpp',
-   }
+require('lspconfig').clangd.setup({
+    cmd = { "clangd",
+	    "--query-driver=/opt/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-*",
+	}
 })
+
+--require('lspconfig').ccls.setup({})
+
+--require('sonarlint').setup({
+--   server = {
+--      cmd = {
+--         --'sonarlint-language-server',
+--         vim.fn.expand("$MASON/bin/sonarlint-language-server.cmd"),
+--         -- Ensure that sonarlint-language-server uses stdio channel
+--         '-stdio',
+--         '-analyzers',
+--         -- paths to the analyzers you need, using those for python and java in this example
+--         vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
+--         vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
+--      }
+--   },
+--   filetypes = {
+--      -- Tested and working
+--      'python',
+--      'cpp',
+--   }
+--})
 
 
