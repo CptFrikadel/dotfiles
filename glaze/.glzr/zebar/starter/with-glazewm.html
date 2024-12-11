@@ -39,6 +39,7 @@
         battery: { type: 'battery' },
         memory: { type: 'memory' },
         weather: { type: 'weather' },
+        audio: { type: 'audio' },
       });
 
       createRoot(document.getElementById('root')).render(<App />);
@@ -121,6 +122,15 @@
             case 'thunder_night':
               return <i className="nf nf-weather-night_alt_lightning"></i>;
           }
+        }
+
+        function getVolumeIcon(audioOutput) {
+          if (audioOutput.defaultPlaybackDevice.volume > 30) 
+            return <i className="nf nf-fa-volume_high"></i>;
+          if (audioOutput.defaultPlaybackDevice.volume > 0) 
+            return <i className="nf nf-fa-volume_low"></i>;
+          if (audioOutput.defaultPlaybackDevice.volume == 0) 
+            return <i className="nf nf-fa-volume_off"></i>;
         }
 
         return (
@@ -211,6 +221,13 @@
                 <div className="weather">
                   {getWeatherIcon(output.weather)}
                   {Math.round(output.weather.celsiusTemp)}°C
+                </div>
+              )}
+
+              {output.audio && (
+                <div className="audio">
+                  {getVolumeIcon(output.audio)}
+                  {output.audio.defaultPlaybackDevice.volume}%
                 </div>
               )}
             </div>
