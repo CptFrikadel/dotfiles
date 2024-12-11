@@ -190,6 +190,9 @@ binding_modes:
     - commands: ['focus --direction down', 'wm-disable-binding-mode --name leader']
       bindings: ['j', 'alt+j', 'alt+down']
 
+    - commands: ['focus --recent-workspace', 'wm-disable-binding-mode --name leader']
+      bindings: ['enter']
+
     # Move focused window in a given direction.
     - commands: ['move --direction left']
       bindings: ['shift+h', 'shift+left']
