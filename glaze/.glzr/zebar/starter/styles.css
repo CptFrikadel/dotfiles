@@ -65,6 +65,7 @@ body,
 .workspaces {
   display: flex;
   align-items: center;
+  margin-right: 30px;
 }
 
 .workspace {
@@ -86,6 +87,7 @@ body,
   }
 }
 
+.media-control,
 .binding-mode,
 .tiling-direction {
   background: rgb(255 255 255 / 15%);
@@ -99,6 +101,10 @@ body,
 
 .binding-mode {
   margin-right: 4px;
+}
+
+.media-control {
+  margin-right: 8px;
 }
 
 .cpu .high-usage {

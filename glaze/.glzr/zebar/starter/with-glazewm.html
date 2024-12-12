@@ -141,6 +141,13 @@
           return `${mediaOutput.currentSession.title} - ${mediaOutput.currentSession.artist}`
         }
 
+        function getMediaControlIcon(mediaOutput) {
+          if (mediaOutput.currentSession == null)
+            return "nf nf-fa-play"
+
+          return output.media.currentSession.isPlaying ? 'nf nf-fa-pause' : 'nf nf-fa-play'
+        }
+
         return (
           <div className="app">
             <div className="left">
@@ -162,6 +169,19 @@
                   ))}
                 </div>
               )}
+
+              {output.media && (
+                <div className="media">
+                  <button
+                    className={`media-control ${getMediaControlIcon(output.media)}`}
+                    onClick={() =>
+                      output.media.togglePlayPause()
+                    }
+                  ></button>
+                  {getMediaText(output.media)}
+                </div>
+              )}
+
             </div>
 
             <div className="center">{output.date?.formatted}</div>
@@ -185,13 +205,6 @@
                     }
                   ></button>
                 </>
-              )}
-
-              {output.media && (
-                <div className="media">
-                  <i className="nf nf-fa-music"></i>
-                  {getMediaText(output.media)}
-                </div>
               )}
 
               {output.network && (
