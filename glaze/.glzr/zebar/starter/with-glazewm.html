@@ -40,6 +40,7 @@
         memory: { type: 'memory' },
         weather: { type: 'weather' },
         audio: { type: 'audio' },
+        media: { type: 'media' },
       });
 
       createRoot(document.getElementById('root')).render(<App />);
@@ -133,6 +134,13 @@
             return <i className="nf nf-fa-volume_off"></i>;
         }
 
+        function getMediaText(mediaOutput) {
+          if (mediaOutput.currentSession == null)
+            return "Nothing Playing.."
+
+          return `${mediaOutput.currentSession.title} - ${mediaOutput.currentSession.artist}`
+        }
+
         return (
           <div className="app">
             <div className="left">
@@ -177,6 +185,13 @@
                     }
                   ></button>
                 </>
+              )}
+
+              {output.media && (
+                <div className="media">
+                  <i className="nf nf-fa-music"></i>
+                  {getMediaText(output.media)}
+                </div>
               )}
 
               {output.network && (
