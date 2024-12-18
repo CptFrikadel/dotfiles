@@ -10,6 +10,7 @@ config.default_prog = { 'C:/Users/Alexander/AppData/Local/Programs/nu/bin/nu.exe
 
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
+
 config.leader = { key="a", mods="CTRL" }
 config.keys = {
     { key = "a", mods = "LEADER|CTRL",  action=wezterm.action{SendString="\x01"}},
@@ -49,6 +50,8 @@ config.keys = {
 
     { key = 'q', mods = 'LEADER|CTRL', action = wezterm.action.QuitApplication },
 
+    { key = 'z', mods = 'ALT', action = wezterm.action.EmitEvent "toggle-padding" },
+
     {
       key = 'R',
       mods = 'LEADER',
@@ -71,31 +74,6 @@ config.keys = {
       },
     },
   }
-
-  config.serial_ports = {
-    {
-      name = "ImpulseMotherBoard",
-      port = "COM5",
-      baud = 115200,
-    }
-  }
-
---wezterm.on('update-right-status', function(window, pane)
---  local is_zoomed = false
---  local our_tab = pane:tab()
---  if our_tab ~= nil then
---      for _, pane_attributes in pairs(our_tab:panes_with_info()) do
---          is_zoomed = pane_attributes['is_zoomed'] or is_zoomed
---      end
---  end
---
---  local zoomed = ''
---  if is_zoomed then
---    zoomed = ' [ZOOMED]'
---  end
---
---  window:set_right_status(window:active_workspace() .. zoomed)
---end)
 
 local sessionizer = wezterm.plugin.require "https://github.com/mikkasendke/sessionizer.wezterm"
 sessionizer.apply_to_config(config)
@@ -127,21 +105,23 @@ tabline.setup({
   },
 })
 
-function recompute_padding(window)
+
+
+local function recompute_padding(window, enabled)
   local window_dims = window:get_dimensions();
   local overrides = window:get_config_overrides() or {}
 
-  if window_dims.pixel_width <= 1920 then
+  if window_dims.pixel_width <= 1920 or not enabled then
     if not overrides.window_padding then
       -- not changing anything
       return;
     end
     overrides.window_padding = nil;
   else
-    -- Use only the middle 33%
+    -- Use only the middle bit
     local new_padding = {
-      left = window_dims.pixel_width / 4,
-      right = window_dims.pixel_width / 4,
+      left = (window_dims.pixel_width - 1920) / 2,
+      right = (window_dims.pixel_width - 1920) / 2,
       top = 0,
       bottom = 0
     };
@@ -155,14 +135,19 @@ function recompute_padding(window)
   window:set_config_overrides(overrides)
 end
 
+local padding_enabled = true;
+
 wezterm.on("window-resized", function(window, pane)
-  recompute_padding(window)
+  recompute_padding(window, padding_enabled)
 end);
 
 wezterm.on("window-config-reloaded", function(window)
-  recompute_padding(window)
+  recompute_padding(window, padding_enabled)
 end);
 
-
+wezterm.on("toggle-padding", function (window)
+  padding_enabled = not padding_enabled
+  recompute_padding(window, padding_enabled);
+end);
 
 return config
