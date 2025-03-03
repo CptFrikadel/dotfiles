@@ -52,6 +52,12 @@ config.keys = {
 
     { key = 'z', mods = 'ALT', action = wezterm.action.EmitEvent "toggle-padding" },
 
+    { key = 'r', mods = 'LEADER',
+      action = act.ActivateKeyTable {
+        name = 'resize_pane',
+        one_shot = false,
+      },
+    },
     {
       key = 'R',
       mods = 'LEADER',
@@ -73,7 +79,33 @@ config.keys = {
         end),
       },
     },
-  }
+}
+
+config.key_tables = {
+  -- Defines the keys that are active in our resize-pane mode.
+  -- Since we're likely to want to make multiple adjustments,
+  -- we made the activation one_shot=false. We therefore need
+  -- to define a key assignment for getting out of this mode.
+  -- 'resize_pane' here corresponds to the name="resize_pane" in
+  -- the key assignments above.
+  resize_pane = {
+    { key = 'LeftArrow', action = act.AdjustPaneSize { 'Left', 3 } },
+    { key = 'h', action = act.AdjustPaneSize { 'Left', 3 } },
+
+    { key = 'RightArrow', action = act.AdjustPaneSize { 'Right', 3 } },
+    { key = 'l', action = act.AdjustPaneSize { 'Right', 3 } },
+
+    { key = 'UpArrow', action = act.AdjustPaneSize { 'Up', 1 } },
+    { key = 'k', action = act.AdjustPaneSize { 'Up', 1 } },
+
+    { key = 'DownArrow', action = act.AdjustPaneSize { 'Down', 1 } },
+    { key = 'j', action = act.AdjustPaneSize { 'Down', 1 } },
+
+    -- Cancel the mode by pressing escape
+    { key = 'Escape', action = 'PopKeyTable' },
+  },
+}
+
 
 local sessionizer = wezterm.plugin.require "https://github.com/mikkasendke/sessionizer.wezterm"
 sessionizer.apply_to_config(config)
