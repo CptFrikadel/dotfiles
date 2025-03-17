@@ -54,7 +54,7 @@ config.keys = {
 
     { key = 'r', mods = 'LEADER',
       action = act.ActivateKeyTable {
-        name = 'resize_pane',
+        name = 'resize_mode',
         one_shot = false,
       },
     },
@@ -88,7 +88,7 @@ config.key_tables = {
   -- to define a key assignment for getting out of this mode.
   -- 'resize_pane' here corresponds to the name="resize_pane" in
   -- the key assignments above.
-  resize_pane = {
+  resize_mode = {
     { key = 'LeftArrow', action = act.AdjustPaneSize { 'Left', 3 } },
     { key = 'h', action = act.AdjustPaneSize { 'Left', 3 } },
 
@@ -120,7 +120,7 @@ tabline.setup({
     theme = 'Catppuccin Mocha'
   },
   sections = {
-    tabline_a = { },
+    tabline_a = { 'mode' },
     tabline_b = { 'workspace' },
     tabline_c = { ' ' },
     tab_active = {
