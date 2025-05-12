@@ -13,17 +13,17 @@
 )
 
 (defalias
-  escctrl (tap-hold 100 300 esc caps)
-  s (multi f24 (tap-hold $tap-time $hold-time s lalt))
-  d (multi f24 (tap-hold $tap-time $hold-time d lctl))
-  f (multi f24 (tap-hold $tap-time $hold-time f lsft))
-  g (multi f24 (tap-hold $tap-time $hold-time g lmet))
-  h (multi f24 (tap-hold $tap-time $hold-time h rmet))
-  j (multi f24 (tap-hold $tap-time $hold-time j rsft))
-  k (multi f24 (tap-hold $tap-time $hold-time k rctl))
-  l (multi f24 (tap-hold $tap-time $hold-time l ralt))
+  capsesc (tap-hold 100 300 esc caps)
+  s (tap-hold $tap-time $hold-time s lalt)
+  d (tap-hold $tap-time $hold-time d lctl)
+  f (tap-hold $tap-time $hold-time f lsft)
+  g (tap-hold $tap-time $hold-time g lmet)
+  h (tap-hold $tap-time $hold-time h rmet)
+  j (tap-hold $tap-time $hold-time j rsft)
+  k (tap-hold $tap-time $hold-time k rctl)
+  l (tap-hold $tap-time $hold-time l ralt)
 )
 
 (deflayer base
-  @escctrl @s @d @f @g @h @j @k @l
+  @capsesc @s @d @f @g @h @j @k @l
 )
