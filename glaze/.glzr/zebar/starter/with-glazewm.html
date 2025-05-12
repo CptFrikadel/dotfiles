@@ -126,12 +126,21 @@
         }
 
         function getVolumeIcon(audioOutput) {
+          if (audioOutput.defaultPlaybackDevice == null)
+            return <i className="nf nf-fa-volume_xmark"></i>;
           if (audioOutput.defaultPlaybackDevice.volume > 30) 
             return <i className="nf nf-fa-volume_high"></i>;
           if (audioOutput.defaultPlaybackDevice.volume > 0) 
             return <i className="nf nf-fa-volume_low"></i>;
           if (audioOutput.defaultPlaybackDevice.volume == 0) 
             return <i className="nf nf-fa-volume_off"></i>;
+        }
+
+        function getVolumeLevel(audioOutput) {
+          if (audioOutput.defaultPlaybackDevice == null)
+            return "?"
+          else
+            return output.audio.defaultPlaybackDevice.volume
         }
 
         function getMediaText(mediaOutput) {
@@ -255,7 +264,7 @@
               {output.audio && (
                 <div className="audio">
                   {getVolumeIcon(output.audio)}
-                  {output.audio.defaultPlaybackDevice.volume}%
+                  {getVolumeLevel(output.audio)}%
                 </div>
               )}
             </div>
