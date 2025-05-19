@@ -110,7 +110,16 @@ config.key_tables = {
 local sessionizer = wezterm.plugin.require "https://github.com/mikkasendke/sessionizer.wezterm"
 sessionizer.apply_to_config(config)
 
-sessionizer.config.paths = "C:/Users/Alexander/source/repos"
+sessionizer.config.paths = {
+        "C:/Users/Alexander/source/repos",
+      }
+
+sessionizer.config.command_options = { -- ignored if command is set
+        include_submodules = false,
+        max_depth = 16,
+        format = "{//}",
+        exclude = { "node_modules" } -- Note that this can also just be a string
+    }
 
 config.use_fancy_tab_bar = false
 
