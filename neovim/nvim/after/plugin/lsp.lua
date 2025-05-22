@@ -130,7 +130,6 @@ require('lspconfig').clangd.setup({
 	}
 })
 
---require('lspconfig').ccls.setup({})
 
 --require('sonarlint').setup({
 --   server = {
