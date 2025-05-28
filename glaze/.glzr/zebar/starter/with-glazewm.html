@@ -127,13 +127,15 @@
 
         function getVolumeIcon(audioOutput) {
           if (audioOutput.defaultPlaybackDevice == null)
-            return <i className="nf nf-fa-volume_xmark"></i>;
+            return <i className="nf nf-fa-volume_xmark"> </i>;
+          if (audioOutput.defaultPlaybackDevice.name.includes("Headphones"))
+            return <i className="nf nf-fa-headphones"> </i>;
           if (audioOutput.defaultPlaybackDevice.volume > 30) 
-            return <i className="nf nf-fa-volume_high"></i>;
+            return <i className="nf nf-fa-volume_high"> </i>;
           if (audioOutput.defaultPlaybackDevice.volume > 0) 
-            return <i className="nf nf-fa-volume_low"></i>;
+            return <i className="nf nf-fa-volume_low"> </i>;
           if (audioOutput.defaultPlaybackDevice.volume == 0) 
-            return <i className="nf nf-fa-volume_off"></i>;
+            return <i className="nf nf-fa-volume_off"> </i>;
         }
 
         function getVolumeLevel(audioOutput) {
