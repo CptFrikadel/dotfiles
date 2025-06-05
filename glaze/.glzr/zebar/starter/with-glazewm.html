@@ -127,6 +127,8 @@
 
         function getVolumeIcon(audioOutput) {
           if (audioOutput.defaultPlaybackDevice == null)
+            return <i className="nf nf-fa-question"> </i>;
+          if (audioOutput.defaultPlaybackDevice.isMuted)
             return <i className="nf nf-fa-volume_xmark"> </i>;
           if (audioOutput.defaultPlaybackDevice.name.includes("Headphones"))
             return <i className="nf nf-fa-headphones"> </i>;
