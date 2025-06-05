@@ -6,6 +6,15 @@ local act = wezterm.action
 config.color_scheme = 'Catppuccin Frappe'
 config.window_background_opacity = 0.95
 
+
+config.wsl_domains = {
+  {
+    name = "Ubuntu",
+    distribution = "Ubuntu",
+    default_cwd = "~",
+  }
+}
+
 config.default_prog = { 'C:/Users/Alexander/AppData/Local/Programs/nu/bin/nu.exe' }
 
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
@@ -45,6 +54,7 @@ config.keys = {
     { key = "n", mods = "LEADER",       action=wezterm.action{ActivateTabRelative=1}},
 
     { key = "s", mods = "LEADER",       action=wezterm.action.ShowLauncherArgs{ flags = 'FUZZY|WORKSPACES'} },
+    { key = "s", mods = "LEADER|SHIFT",       action=wezterm.action.ShowLauncherArgs{ flags = 'FUZZY|DOMAINS'} },
 
     { key = "[", mods = "LEADER",       action=wezterm.action.ActivateCopyMode },
 
