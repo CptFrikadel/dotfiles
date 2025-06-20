@@ -54,7 +54,7 @@ config.keys = {
     { key = "n", mods = "LEADER",       action=wezterm.action{ActivateTabRelative=1}},
 
     { key = "s", mods = "LEADER",       action=wezterm.action.ShowLauncherArgs{ flags = 'FUZZY|WORKSPACES'} },
-    { key = "s", mods = "LEADER|SHIFT",       action=wezterm.action.ShowLauncherArgs{ flags = 'FUZZY|DOMAINS'} },
+    { key = "c", mods = "LEADER|SHIFT",       action=wezterm.action.ShowLauncherArgs{ flags = 'FUZZY|DOMAINS'} },
 
     { key = "[", mods = "LEADER",       action=wezterm.action.ActivateCopyMode },
 
