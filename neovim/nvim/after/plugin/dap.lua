@@ -7,7 +7,36 @@ vim.keymap.set('n', "<leader>dT", function() require("dap").terminate() end)
 
 
 
-require("dapui").setup()
+require("dapui").setup({
+  layouts = { {
+        elements = { {
+            id = "scopes",
+            size = 0.35
+          }, {
+            id = "breakpoints",
+            size = 0.2
+          }, {
+            id = "stacks",
+            size = 0.25
+          }, {
+            id = "watches",
+            size = 0.1
+          } },
+        position = "left",
+        size = 70
+      }, {
+        elements = { {
+            id = "repl",
+            size = 0.5
+          }, {
+            id = "console",
+            size = 0.5
+          } },
+        position = "bottom",
+        size = 20
+      } },
+})
+
 require("nvim-dap-virtual-text").setup()
 
 local function IsWindows()
