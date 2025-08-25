@@ -20,6 +20,25 @@ config.default_prog = { 'C:/Users/Alexander/AppData/Local/Programs/nu/bin/nu.exe
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 
+local sessionizer = wezterm.plugin.require "https://github.com/mikkasendke/sessionizer.wezterm"
+local history = wezterm.plugin.require "https://github.com/mikkasendke/sessionizer-history.git" -- the most recent functionality moved to another plugin
+
+local home_dir = wezterm.home_dir
+local config_path = home_dir .. ("/dotfiles")
+
+local schema = {
+   options = {
+      title = "My title",
+      always_fuzzy = true,
+      callback = history.Wrapper(sessionizer.DefaultCallback), -- tell history that we changed to another workspace
+   },
+   config_path .. "/wezterm",
+   config_path .. "/neovim/nvim",
+   config_path,
+   sessionizer.FdSearch { home_dir .. "/source/repos", include_submodules = false },
+}
+
+
 config.leader = { key="a", mods="CTRL" }
 config.keys = {
     { key = "a", mods = "LEADER|CTRL",  action=wezterm.action{SendString="\x01"}},
@@ -89,6 +108,8 @@ config.keys = {
         end),
       },
     },
+   { key = "s", mods = "ALT", action = sessionizer.show(schema) },
+   { key = "m", mods = "ALT", action = history.switch_to_most_recent_workspace },
 }
 
 config.key_tables = {
@@ -117,19 +138,6 @@ config.key_tables = {
 }
 
 
-local sessionizer = wezterm.plugin.require "https://github.com/mikkasendke/sessionizer.wezterm"
-sessionizer.apply_to_config(config)
-
-sessionizer.config.paths = {
-        "C:/Users/Alexander/source/repos",
-      }
-
-sessionizer.config.command_options = { -- ignored if command is set
-        include_submodules = false,
-        max_depth = 16,
-        format = "{//}",
-        exclude = { "node_modules" } -- Note that this can also just be a string
-    }
 
 config.use_fancy_tab_bar = false
 
@@ -150,8 +158,8 @@ tabline.setup({
       { 'cwd', padding = { left = 0, right = 1 } },
     },
     tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
-    tabline_x = { 'ram', 'cpu' },
-    tabline_y = { 'datetime', },
+    tabline_x = { },
+    tabline_y = { },
     tabline_z = { },
   },
 })
@@ -188,7 +196,7 @@ end
 
 local padding_enabled = true;
 
-wezterm.on("window-resized", function(window, pane)
+wezterm.on("window-resized", function(window)
   recompute_padding(window, padding_enabled)
 end);
 
