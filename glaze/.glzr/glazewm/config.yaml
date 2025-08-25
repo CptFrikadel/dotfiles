@@ -139,7 +139,6 @@ workspaces:
   - name: '9'
     display_name: "chat"
     bind_to_monitor: 1
-    keep_alive: true
 
 window_rules:
   - commands: ['ignore']
@@ -285,36 +284,36 @@ binding_modes:
 
     # Move the focused window's parent workspace to a monitor in a given
     # direction.
-    - commands: ['move-workspace --direction left']
+    - commands: ['move-workspace --direction left', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+a']
-    - commands: ['move-workspace --direction right']
+    - commands: ['move-workspace --direction right', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+f']
-    - commands: ['move-workspace --direction up']
+    - commands: ['move-workspace --direction up', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+d']
-    - commands: ['move-workspace --direction down']
+    - commands: ['move-workspace --direction down', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+s']
 
     # Move focused window to a workspace defined in `workspaces` config.
-    - commands: ['move --workspace 1', 'focus --workspace 1']
+    - commands: ['move --workspace 1', 'focus --workspace 1', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+1']
-    - commands: ['move --workspace 2', 'focus --workspace 2']
+    - commands: ['move --workspace 2', 'focus --workspace 2', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+2']
-    - commands: ['move --workspace 3', 'focus --workspace 3']
+    - commands: ['move --workspace 3', 'focus --workspace 3', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+3']
-    - commands: ['move --workspace 4', 'focus --workspace 4']
+    - commands: ['move --workspace 4', 'focus --workspace 4', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+4']
-    - commands: ['move --workspace 5', 'focus --workspace 5']
+    - commands: ['move --workspace 5', 'focus --workspace 5', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+5']
-    - commands: ['move --workspace 6', 'focus --workspace 6']
+    - commands: ['move --workspace 6', 'focus --workspace 6', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+6']
-    - commands: ['move --workspace 7', 'focus --workspace 7']
+    - commands: ['move --workspace 7', 'focus --workspace 7', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+7']
-    - commands: ['move --workspace 8', 'focus --workspace 8']
+    - commands: ['move --workspace 8', 'focus --workspace 8', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+8']
-    - commands: ['move --workspace 9', 'focus --workspace 9']
+    - commands: ['move --workspace 9', 'focus --workspace 9', 'wm-disable-binding-mode --name leader']
       bindings: ['shift+9']
 
-    - commands: ['shell-exec C:\Program Files\Qalculate\qalculate-qt.exe']
+    - commands: ['shell-exec C:\Program Files\Qalculate\qalculate-qt.exe', 'wm-disable-binding-mode --name leader']
       bindings: ['q']
 
 keybindings:
@@ -406,8 +405,8 @@ keybindings:
   # Launch CMD terminal. Alternatively, use `shell-exec wt` or
   # `shell-exec %ProgramFiles%/Git/git-bash.exe` to start Windows
   # Terminal and Git Bash respectively.
-  - commands: ['shell-exec wezterm']
-    bindings: ['alt+enter']
+  #- commands: ['shell-exec wezterm']
+  #  bindings: ['alt+enter']
 
   # Focus the next/previous workspace defined in `workspaces` config.
   #- commands: ['focus --next-workspace']
