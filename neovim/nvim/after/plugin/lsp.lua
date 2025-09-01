@@ -47,6 +47,7 @@ local cmp_mappings = cmp.mapping.preset.insert({
 cmp.setup({
 	mapping = cmp_mappings,
 	sources = cmp.config.sources({
+	    { name = "copilot" },
 	    { name = "nvim_lua" },
 	    { name = "ctags" ,
 		option = {
@@ -151,5 +152,13 @@ require('lspconfig').clangd.setup({
 --      'cpp',
 --   }
 --})
+
+
+require('copilot').setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+
+require('copilot_cmp').setup()
 
 
