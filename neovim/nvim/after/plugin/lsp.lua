@@ -9,7 +9,7 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'lua_ls', 'clangd', 'pyright'},
+  ensure_installed = {'lua_ls', 'clangd', 'pyright', 'rust_analyzer'},
   automatic_enable = false,
 })
 
@@ -132,6 +132,7 @@ require('lspconfig').clangd.setup({
 	}
 })
 
+require'lspconfig'.rust_analyzer.setup({})
 
 --require('sonarlint').setup({
 --   server = {
