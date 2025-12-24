@@ -20,7 +20,7 @@ general:
 
   cursor_jump:
     # Whether to automatically move the cursor on the specified trigger.
-    enabled: true
+    enabled: false
 
     # Trigger for cursor jump:
     # - 'monitor_focus': Jump when focus changes between monitors.
@@ -94,7 +94,7 @@ window_behavior:
       centered: false
 
       # Whether to show floating windows as always on top.
-      shown_on_top: false
+      shown_on_top: true
 
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
@@ -162,6 +162,7 @@ window_rules:
     match:
       - window_process: { equals: 'qalculate-qt' }
       - window_title: { equals: 'Command Palette' }
+      - window_title: { regex: 'Figure [0-9]+' }
 
 binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.
