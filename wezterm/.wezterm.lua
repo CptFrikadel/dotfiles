@@ -5,6 +5,7 @@ local act = wezterm.action
 
 config.color_scheme = 'Catppuccin Frappe'
 config.window_background_opacity = 0.95
+config.hide_mouse_cursor_when_typing = false
 
 
 config.wsl_domains = {
