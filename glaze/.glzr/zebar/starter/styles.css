@@ -42,6 +42,10 @@ body,
   align-items: center;
 }
 
+.left {
+  min-width: 0;
+}
+
 .center {
   justify-self: center;
 }
@@ -105,6 +109,14 @@ body,
 
 .media-control {
   margin-right: 8px;
+}
+
+.media {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cpu .high-usage {
