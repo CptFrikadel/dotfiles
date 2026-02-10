@@ -21,3 +21,4 @@ vim.opt.concealcursor = "c"
 
 vim.opt.splitright = true
 
+vim.o.exrc = true

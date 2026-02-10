@@ -1,13 +1,16 @@
 local lsp = require("lsp-zero")
 
-local lspconfig_defaults = require('lspconfig').util.default_config
-lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lspconfig_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
-)
+vim.lsp.config('*', {
+    capabilities = require('cmp_nvim_lsp').default_capabilities()
+})
 
-require('mason').setup({})
+require("mason").setup({
+    registries = {
+        "github:mason-org/mason-registry",
+        "github:Crashdummyy/mason-registry",
+    },
+})
+
 require('mason-lspconfig').setup({
   ensure_installed = {'lua_ls', 'clangd', 'pyright', 'rust_analyzer'},
   automatic_enable = false,
@@ -107,7 +110,7 @@ vim.diagnostic.config({
  })
 
 
-require'lspconfig'.lua_ls.setup({
+vim.lsp.config('lua_ls', {
     settings = {
 	Lua = {
 	    diagnostics = {
@@ -123,16 +126,20 @@ require'lspconfig'.lua_ls.setup({
 	}
     }
 })
+vim.lsp.enable('lua_ls')
 
-require'lspconfig'.pyright.setup({})
+vim.lsp.enable('pyright')
 
-require('lspconfig').clangd.setup({
+vim.lsp.config('clangd', {
     cmd = { "clangd",
 	    "--query-driver=/opt/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-*",
 	}
 })
+vim.lsp.enable('clangd')
 
-require'lspconfig'.rust_analyzer.setup({})
+vim.lsp.enable('rust_analyzer')
+
+vim.lsp.enable('roslyn')
 
 --require('sonarlint').setup({
 --   server = {
@@ -161,5 +168,4 @@ require('copilot').setup({
 })
 
 require('copilot_cmp').setup()
-
 

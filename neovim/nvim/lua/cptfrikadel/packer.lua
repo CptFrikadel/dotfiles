@@ -125,7 +125,9 @@ return require('packer').startup(function(use)
   use({ "theHamsta/nvim-dap-virtual-text", requires = {"mfussenegger/nvim-dap"} })
 
   use { "zbirenbaum/copilot.lua" }
-  use { "zbirenbaum/copilot-cmp", after = { "copilot.lua" }
+  use { "zbirenbaum/copilot-cmp", after = { "copilot.lua" },
+
+  use { "seblyng/roslyn.nvim" },
 }
 
 
