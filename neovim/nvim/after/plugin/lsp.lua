@@ -137,6 +137,16 @@ vim.lsp.config('clangd', {
 })
 vim.lsp.enable('clangd')
 
+vim.api.nvim_create_user_command('ClangdSwitchSourceHeader', function()
+    local clients = vim.lsp.get_clients({ bufnr = 0, name = 'clangd' })
+    if #clients == 0 then return vim.notify('clangd not attached', vim.log.levels.WARN) end
+    local params = { uri = vim.uri_from_bufnr(0) }
+    clients[1]:request('textDocument/switchSourceHeader', params, function(err, result)
+        if err then return vim.notify(err.message, vim.log.levels.ERROR) end
+        if result then vim.cmd.edit(vim.uri_to_fname(result)) end
+    end)
+end, { desc = 'Switch between source and header' })
+
 vim.lsp.enable('rust_analyzer')
 
 vim.lsp.enable('roslyn')
