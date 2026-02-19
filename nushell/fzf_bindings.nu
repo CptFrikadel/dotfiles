@@ -10,7 +10,7 @@ const alt_c = {
       {
         send: executehostcommand
         cmd: "
-          let result = fd --type directory --hidden | fzf;
+          let result = fd --type directory | fzf --layout reverse --height 50%;
           cd $result;
         "
       }
@@ -31,7 +31,7 @@ const ctrl_r = {
           | get command
           | str replace --all (char newline) ' '
           | to text
-          | fzf --preview 'printf \'{}\' | nufmt --stdin 2>&1 | rg -v ERROR';
+          | fzf --layout reverse --height 50%;
         commandline edit --append $result;
         commandline set-cursor --end
       "
