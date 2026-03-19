@@ -81,6 +81,7 @@ config.keys = {
     { key = 'q', mods = 'LEADER|CTRL', action = wezterm.action.QuitApplication },
 
     { key = 'z', mods = 'ALT', action = wezterm.action.EmitEvent "toggle-padding" },
+    { key = 't', mods = 'ALT', action = wezterm.action.EmitEvent "toggle-transparency" },
 
     { key = 'r', mods = 'LEADER',
       action = act.ActivateKeyTable {
@@ -208,6 +209,16 @@ end);
 wezterm.on("toggle-padding", function (window)
   padding_enabled = not padding_enabled
   recompute_padding(window, padding_enabled);
+end);
+
+wezterm.on("toggle-transparency", function(window)
+  local overrides = window:get_config_overrides() or {}
+  if overrides.window_background_opacity == 1.0 then
+    overrides.window_background_opacity = nil
+  else
+    overrides.window_background_opacity = 1.0
+  end
+  window:set_config_overrides(overrides)
 end);
 
 return config
