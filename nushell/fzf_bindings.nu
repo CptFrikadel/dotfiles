@@ -29,8 +29,10 @@ const ctrl_r = {
       cmd: "
         let result = history
           | get command
+          | reverse
+          | uniq
           | str replace --all (char newline) ' '
-          | to text
+          | str join (char newline)
           | fzf --layout reverse --height 50%;
         commandline edit --append $result;
         commandline set-cursor --end
