@@ -33,7 +33,7 @@ const ctrl_r = {
           | uniq
           | str replace --all (char newline) ' '
           | str join (char newline)
-          | fzf --layout reverse --height 50%;
+          | fzf --layout reverse --height 50% --no-sort;
         commandline edit --append $result;
         commandline set-cursor --end
       "
