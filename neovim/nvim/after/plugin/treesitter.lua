@@ -1,74 +1,57 @@
 
-require'nvim-treesitter'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "c", "cpp", "python", "lua", "rust" },
+require('nvim-treesitter').install({ "c", "cpp", "python", "lua", "rust" })
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-
- textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-        ['ii'] = '@conditional.inner',
-        ['ai'] = '@conditional.outer',
-        ['il'] = '@loop.inner',
-        ['al'] = '@loop.outer',
-        ['at'] = '@comment.outer',
-        ['it'] = '@comment.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']]'] = '@function.outer',
-        [']a'] = '@parameter.inner',
-      },
-      goto_next_end = {
-        [']['] = '@function.outer',
-      },
-      goto_previous_start = {
-        ['[['] = '@function.outer',
-        ['[a'] = '@parameter.inner',
-      },
-      goto_previous_end = {
-        ['[]'] = '@function.outer',
-      },
-      -- goto_next = {
-      --   [']i'] = "@conditional.inner",
-      -- },
-      -- goto_previous = {
-      --   ['[i'] = "@conditional.inner",
-      -- }
-    },
-  }
-}
+-- Auto-install missing parsers when entering a buffer
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+    if not lang then return end
+    if pcall(vim.treesitter.language.inspect, lang) then
+      vim.treesitter.start()
+    else
+      pcall(require('nvim-treesitter').install, { lang })
+    end
+  end,
+})
 
 require'treesitter-context'.setup{}
+
+-- Textobjects
+require('nvim-treesitter-textobjects').setup({
+  select = { lookahead = true },
+  move = { set_jumps = true },
+})
+
+local ts_select = require('nvim-treesitter-textobjects.select')
+local ts_move = require('nvim-treesitter-textobjects.move')
+
+-- Select textobjects
+local select_keymaps = {
+  ['aa'] = '@parameter.outer',
+  ['ia'] = '@parameter.inner',
+  ['af'] = '@function.outer',
+  ['if'] = '@function.inner',
+  ['ac'] = '@class.outer',
+  ['ic'] = '@class.inner',
+  ['ii'] = '@conditional.inner',
+  ['ai'] = '@conditional.outer',
+  ['il'] = '@loop.inner',
+  ['al'] = '@loop.outer',
+  ['at'] = '@comment.outer',
+  ['it'] = '@comment.inner',
+}
+
+for key, query in pairs(select_keymaps) do
+  vim.keymap.set({ 'x', 'o' }, key, function() ts_select.select_textobject(query) end)
+end
+
+-- Move to textobjects (repeatable via ; and , out of the box)
+vim.keymap.set({ 'n', 'x', 'o' }, ']]', function() ts_move.goto_next_start('@function.outer') end)
+vim.keymap.set({ 'n', 'x', 'o' }, ']a', function() ts_move.goto_next_start('@parameter.inner') end)
+vim.keymap.set({ 'n', 'x', 'o' }, '][', function() ts_move.goto_next_end('@function.outer') end)
+vim.keymap.set({ 'n', 'x', 'o' }, '[[', function() ts_move.goto_previous_start('@function.outer') end)
+vim.keymap.set({ 'n', 'x', 'o' }, '[a', function() ts_move.goto_previous_start('@parameter.inner') end)
+vim.keymap.set({ 'n', 'x', 'o' }, '[]', function() ts_move.goto_previous_end('@function.outer') end)
 
 -- Repeat last move using ; and ,
 local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
