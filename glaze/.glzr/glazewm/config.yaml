@@ -162,6 +162,7 @@ window_rules:
     match:
       - window_process: { equals: 'qalculate-qt' }
       - window_title: { equals: 'Command Palette' }
+      - window_title: { equals: 'Snipping Tool' }
       - window_title: { regex: 'Figure [0-9]+' }
 
 binding_modes:
