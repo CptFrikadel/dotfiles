@@ -40,13 +40,15 @@ local schema = {
 }
 
 
+package.path = wezterm.home_dir .. "/dotfiles/wezterm/?.lua;" .. package.path
+local padding = require("padding")
+
 config.leader = { key="a", mods="CTRL" }
 config.keys = {
     { key = "a", mods = "LEADER|CTRL",  action=wezterm.action{SendString="\x01"}},
-    { key = "-", mods = "LEADER",       action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
-    { key = "\\",mods = "LEADER",       action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
-    { key = "-", mods = "LEADER",       action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
-    { key = "v", mods = "LEADER",       action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
+    { key = "-", mods = "LEADER",       action=padding.split("Bottom")},
+    { key = "\\",mods = "LEADER",       action=padding.split("Right")},
+    { key = "v", mods = "LEADER",       action=padding.split("Right")},
     { key = "o", mods = "LEADER",       action="TogglePaneZoomState" },
     { key = "z", mods = "LEADER",       action="TogglePaneZoomState" },
     { key = "c", mods = "LEADER",       action=wezterm.action{SpawnTab="CurrentPaneDomain"}},
@@ -167,49 +169,6 @@ tabline.setup({
 })
 
 
-
-local function recompute_padding(window, enabled)
-  local window_dims = window:get_dimensions();
-  local overrides = window:get_config_overrides() or {}
-
-  if window_dims.pixel_width <= 1920 or not enabled then
-    if not overrides.window_padding then
-      -- not changing anything
-      return;
-    end
-    overrides.window_padding = nil;
-  else
-    -- Use only the middle bit
-    local new_padding = {
-      left = (window_dims.pixel_width - 1920) / 2,
-      right = (window_dims.pixel_width - 1920) / 2,
-      top = 0,
-      bottom = 0
-    };
-    if overrides.window_padding and new_padding.left == overrides.window_padding.left then
-      -- padding is same, avoid triggering further changes
-      return
-    end
-    overrides.window_padding = new_padding
-
-  end
-  window:set_config_overrides(overrides)
-end
-
-local padding_enabled = true;
-
-wezterm.on("window-resized", function(window)
-  recompute_padding(window, padding_enabled)
-end);
-
-wezterm.on("window-config-reloaded", function(window)
-  recompute_padding(window, padding_enabled)
-end);
-
-wezterm.on("toggle-padding", function (window)
-  padding_enabled = not padding_enabled
-  recompute_padding(window, padding_enabled);
-end);
 
 wezterm.on("toggle-transparency", function(window)
   local overrides = window:get_config_overrides() or {}
