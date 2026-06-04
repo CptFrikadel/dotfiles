@@ -15,7 +15,7 @@ local SPACER_CMD = wezterm.target_triple:find("windows")
         "[Console]::Write([char]27 + '[?25l'); while($true){Start-Sleep 3600}" }
   or  { "sh", "-c", "printf '\\033[?25l'; exec sleep infinity" }
 
-local TARGET_MAIN_WIDTH_PX = 1920
+local TARGET_MAIN_WIDTH_PX = 2100
 local SPACER_USER_VAR = "wezterm_spacer"
 
 local WEZTERM_BIN = wezterm.executable_dir
@@ -86,7 +86,11 @@ local function spawn_spacers(window, tab)
   }
   mark_as_spacer(left_spacer)
 
-  main:activate()
+  -- Splitting focuses the new spacer; pull focus back to main. Skip for
+  -- background tabs (resize sweep) so we don't yank the user's view.
+  if window:active_tab():tab_id() == tab:tab_id() then
+    main:activate()
+  end
 end
 
 -- Kill spacers via the wezterm CLI and block until done. Used before a
@@ -153,6 +157,34 @@ wezterm.on("toggle-padding", function(window)
   -- Manual toggle counts as initialization so update-status doesn't
   -- respawn after a manual close (or vice versa).
   initialized_tabs[tab:tab_id()] = true
+end)
+
+-- Spacers are real panes and don't reflow themselves, so a window resize
+-- (e.g. undocking a laptop and dropping to a smaller screen) leaves the
+-- padding stale. Re-evaluate every tab on resize: tear spacers down when
+-- the window falls to/below the target width, and restore them when it
+-- grows back. We only restore tabs we ourselves auto-disabled here, so a
+-- manual toggle-off is never silently overridden.
+local resize_disabled_tabs = {}
+
+wezterm.on("window-resized", function(window)
+  local dims = window:get_dimensions()
+  local too_narrow = dims.pixel_width <= TARGET_MAIN_WIDTH_PX
+
+  for _, tab in ipairs(window:mux_window():tabs()) do
+    local id = tab:tab_id()
+    if too_narrow then
+      if #tab_spacer_panes(tab) > 0 then
+        close_spacers(tab)
+        resize_disabled_tabs[id] = true
+      end
+    elseif resize_disabled_tabs[id]
+       and #tab_spacer_panes(tab) == 0
+       and #tab_user_panes(tab) == 1 then
+      resize_disabled_tabs[id] = nil
+      spawn_spacers(window, tab)
+    end
+  end
 end)
 
 return M
