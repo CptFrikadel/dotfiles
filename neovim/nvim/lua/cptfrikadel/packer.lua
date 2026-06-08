@@ -82,6 +82,7 @@ return require('packer').startup(function(use)
 
   use {
           "nvim-treesitter/nvim-treesitter-textobjects",
+          branch = "main",
           after = "nvim-treesitter",
           requires = "nvim-treesitter/nvim-treesitter",
   }
