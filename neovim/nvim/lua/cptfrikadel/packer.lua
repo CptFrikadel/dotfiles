@@ -128,6 +128,7 @@ return require('packer').startup(function(use)
   use { "zbirenbaum/copilot-cmp", after = { "copilot.lua" },
 
   use { "seblyng/roslyn.nvim" },
+  use { "sindrets/diffview.nvim" },
 }
 
 
