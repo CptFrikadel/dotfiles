@@ -12,7 +12,7 @@ require("mason").setup({
 })
 
 require('mason-lspconfig').setup({
-  ensure_installed = {'lua_ls', 'clangd', 'pyright', 'rust_analyzer'},
+  ensure_installed = {'lua_ls', 'clangd', 'pyright'},
   automatic_enable = false,
 })
 
@@ -157,6 +157,12 @@ vim.api.nvim_create_user_command('ClangdSwitchSourceHeader', function()
     end)
 end, { desc = 'Switch between source and header' })
 
+-- Use the rust-analyzer that ships with the active rustup toolchain, not Mason's
+-- standalone build: keeps its `cargo metadata` CLI in sync with cargo (the standalone
+-- one passed --lockfile-path, which an older cargo rejects, breaking the crate graph).
+vim.lsp.config('rust_analyzer', {
+    cmd = { 'rustup', 'run', 'stable', 'rust-analyzer' },
+})
 vim.lsp.enable('rust_analyzer')
 
 vim.lsp.enable('roslyn')
