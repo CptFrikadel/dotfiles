@@ -404,10 +404,22 @@ $env.config = {
             }
         }
         {
-            name: ide_completion_menu
+            name: move_down
             modifier: control
             keycode: char_n
-            mode: [emacs vi_normal vi_insert]
+            mode: [emacs, vi_normal, vi_insert]
+            event: {
+                until: [
+                    { send: menudown }
+                    { send: down }
+                ]
+            }
+        }
+        {
+            name: ide_completion_menu
+            modifier: control
+            keycode: space
+            mode: [emacs, vi_normal, vi_insert]
             event: {
                 until: [
                     { send: menu name: ide_completion_menu }
