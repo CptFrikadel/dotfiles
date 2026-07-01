@@ -93,12 +93,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
+    vim.keymap.set("n", "<leader>tf", function()
+        vim.b.disable_lsp_format_on_save = not vim.b.disable_lsp_format_on_save
+        vim.notify("LSP format on save " .. (vim.b.disable_lsp_format_on_save and "disabled" or "enabled") .. " for this buffer")
+    end, opts)
+
     local client = vim.lsp.get_client_by_id(event.data.client_id)
     if client and client:supports_method('textDocument/formatting') then
         vim.api.nvim_create_autocmd('BufWritePre', {
             group = vim.api.nvim_create_augroup('lsp_format_on_save.' .. event.buf, { clear = true }),
             buffer = event.buf,
             callback = function()
+                if vim.b[event.buf].disable_lsp_format_on_save then return end
                 vim.lsp.buf.format({ bufnr = event.buf, id = client.id, timeout_ms = 2000 })
             end,
         })
