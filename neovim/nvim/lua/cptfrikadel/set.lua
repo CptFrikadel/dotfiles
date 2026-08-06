@@ -16,6 +16,9 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.autoread = true
 
+-- No swap files: everything worthwhile is tracked in git, and stale swaps interfere with the LSP.
+vim.opt.swapfile = false
+
 vim.opt.conceallevel = 3
 vim.opt.concealcursor = "c"
 
