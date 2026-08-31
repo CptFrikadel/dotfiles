@@ -47,6 +47,21 @@ local function tab_spacer_panes(tab)
   return out
 end
 
+-- True when two or more user panes sit side by side (differing `left`).
+-- Only that arrangement actually competes with the spacers for width; a
+-- stacked split keeps the main pane's width, and tearing the spacers down
+-- for it would rewrap every line in the pane for no benefit.
+local function has_side_by_side_user_panes(tab)
+  local seen, count = {}, 0
+  for _, info in ipairs(tab:panes_with_info()) do
+    if not is_spacer(info.pane) and not seen[info.left] then
+      seen[info.left] = true
+      count = count + 1
+    end
+  end
+  return count > 1
+end
+
 -- Ctrl+C kills both the Linux `sleep` (SIGINT) and the powershell loop
 -- (cancels Start-Sleep, exits the script). Async — pane closes when the
 -- process actually exits.
@@ -138,6 +153,19 @@ wezterm.on("update-status", function(window)
        and #tab_spacer_panes(tab) == 0 then
       initialized_tabs[tab:tab_id()] = true
       spawn_spacers(window, tab)
+    end
+  end
+
+  -- Drop the spacers once panes sit side by side, so the split gets the
+  -- full window width. M.split does this for the keybindings, but splits
+  -- made outside it (`wezterm cli split-pane`, plugins) would otherwise
+  -- stay padded and cramped. Stacked splits are deliberately left padded:
+  -- they keep the main pane's width, so removing the spacers would rewrap
+  -- its contents for nothing. Sweep every tab, not just the active one, so
+  -- a split into a background tab isn't left padded until it's focused.
+  for _, t in ipairs(window:mux_window():tabs()) do
+    if #tab_spacer_panes(t) > 0 and has_side_by_side_user_panes(t) then
+      close_spacers(t)
     end
   end
 
