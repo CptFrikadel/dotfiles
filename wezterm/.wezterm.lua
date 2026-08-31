@@ -33,6 +33,7 @@ local schema = {
       always_fuzzy = true,
       callback = history.Wrapper(sessionizer.DefaultCallback), -- tell history that we changed to another workspace
    },
+   sessionizer.AllActiveWorkspaces {},
    config_path .. "/wezterm",
    config_path .. "/neovim/nvim",
    config_path,
