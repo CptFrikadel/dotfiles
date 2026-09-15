@@ -19,7 +19,7 @@ const alt_c = {
 
 # History
 const ctrl_r = {
-  name: history_menu
+  name: fzf_history
   modifier: control
   keycode: char_r
   mode: [emacs, vi_insert, vi_normal]
@@ -61,8 +61,10 @@ const ctrl_t =  {
 
 # Update the $env.config
 export-env {
-  if not ($env.__keybindings_loaded? | default false) {
-    $env.__keybindings_loaded = true
+  # Idempotent by binding name -- deliberately not an env var, which would leak
+  # to child processes and make nested shells skip these bindings entirely.
+  let loaded = $env.config.keybindings | each {|b| $b.name? | default "" }
+  if "fzf_dirs" not-in $loaded {
     $env.config.keybindings = $env.config.keybindings | append [
       $alt_c
       $ctrl_r
