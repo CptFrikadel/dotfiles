@@ -16,7 +16,7 @@ config.wsl_domains = {
   }
 }
 
-config.default_prog = { 'C:/Users/Alexander/AppData/Local/Programs/nu/bin/nu.exe' }
+config.default_prog = { 'C:/Program Files/nu/bin/nu.exe' }
 
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
@@ -37,7 +37,12 @@ local schema = {
    config_path .. "/wezterm",
    config_path .. "/neovim/nvim",
    config_path,
-   sessionizer.FdSearch { home_dir .. "/source/repos", include_submodules = false },
+   -- max_depth is counted against the ".git" entry fd matches, not the repo
+   -- root it reports ({//} strips the last segment), so it must be one deeper
+   -- than the deepest repo. Nested repos (BetaTool/*, stuff/AdventOfCode) sit
+   -- at depth 2, so 3 is the minimum that finds them: depth 2 yields 11 repos,
+   -- depth 3 yields all 18 -- the same set as the default 16, at 90ms vs 139ms.
+   sessionizer.FdSearch { home_dir .. "/source/repos", include_submodules = false, max_depth = 3 },
 }
 
 
@@ -149,7 +154,18 @@ config.use_fancy_tab_bar = false
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 tabline.setup({
   options = {
-    theme = 'Catppuccin Mocha'
+    theme = 'Catppuccin Mocha',
+    -- tabline indexes its theme by the active key table name whenever that name
+    -- ends in "_mode" (components/window/mode.lua). Our 'resize_mode' key table
+    -- has no entry in the built-in theme, so every update-status tick threw
+    -- "attempt to index a nil value (local 'colors')". Supply the missing mode.
+    theme_overrides = {
+      resize_mode = {
+        a = { fg = '#1e1e2e', bg = '#f9e2af' },
+        b = { fg = '#f9e2af', bg = '#313244' },
+        c = { fg = '#cdd6f4', bg = '#1e1e2e' },
+      },
+    },
   },
   sections = {
     tabline_a = { 'mode' },
