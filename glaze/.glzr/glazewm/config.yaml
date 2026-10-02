@@ -323,6 +323,10 @@ binding_modes:
     - commands: ['shell-exec C:\Program Files\Qalculate\qalculate-qt.exe', 'wm-disable-binding-mode --name leader']
       bindings: ['q']
 
+    # Cycle the wallpaper once via the RotateWallpaper scheduled task.
+    - commands: ['shell-exec --hide-window schtasks /run /tn RotateWallpaper', 'wm-disable-binding-mode --name leader']
+      bindings: ['w']
+
 keybindings:
   # enable the 'leadered' mode
   - commands: ['wm-enable-binding-mode --name leader']
