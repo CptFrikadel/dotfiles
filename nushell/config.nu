@@ -902,3 +902,6 @@ if ($starship_bin != null) and (
 }
 
 source ~/.zoxide.nu
+
+# Cycle the wallpaper once via the RotateWallpaper scheduled task (runs headless).
+alias wp = ^schtasks /run /tn RotateWallpaper
