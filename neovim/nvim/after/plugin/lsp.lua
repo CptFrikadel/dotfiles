@@ -59,7 +59,6 @@ cmp.setup({
 			}
 		},
 		{ name = "nvim_lsp" },
-		{ name = "copilot" },
 		{ name = "path" },
 		{ name = "luasnip" },
 		{ name = "buffer",  keyword_length = 5 },
@@ -194,11 +193,3 @@ vim.lsp.enable('roslyn')
 --      'cpp',
 --   }
 --})
-
-
-require('copilot').setup({
-	suggestion = { enabled = false },
-	panel = { enabled = false },
-})
-
-require('copilot_cmp').setup()

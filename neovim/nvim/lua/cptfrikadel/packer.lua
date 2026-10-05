@@ -2,23 +2,19 @@
 
 
 local ensure_packer = function()
+	local fn = vim.fn
 
-    local fn = vim.fn
+	local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
-    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+	if fn.empty(fn.glob(install_path)) > 0 then
+		fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 
-    if fn.empty(fn.glob(install_path)) > 0 then
+		vim.cmd [[packadd packer.nvim]]
 
-        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+		return true
+	end
 
-        vim.cmd [[packadd packer.nvim]]
-
-        return true
-
-    end
-
-    return false
-
+	return false
 end
 
 
@@ -31,106 +27,102 @@ vim.cmd [[packadd packer.nvim]]
 
 
 return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+	-- Packer can manage itself
+	use 'wbthomason/packer.nvim'
 
-  use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.4',
-	  -- or                            , branch = '0.1.x',
-	  requires = { {'nvim-lua/plenary.nvim'} }
-  }
+	use {
+		'nvim-telescope/telescope.nvim', tag = '0.1.4',
+		-- or                            , branch = '0.1.x',
+		requires = { { 'nvim-lua/plenary.nvim' } }
+	}
 
-  -- Colors
-  use({
-	  'rose-pine/neovim',
-	  as = 'rose-pine',
-	  config = function()
-		  vim.cmd('colorscheme rose-pine')
-	  end
-  })
+	-- Colors
+	use({
+		'rose-pine/neovim',
+		as = 'rose-pine',
+		config = function()
+			vim.cmd('colorscheme rose-pine')
+		end
+	})
 
-  -- Treesitter
-  use('nvim-treesitter/nvim-treesitter', { branch = 'main', run = ':TSUpdate'})
+	-- Treesitter
+	use { 'nvim-treesitter/nvim-treesitter', branch = 'main', run = ':TSUpdate' }
 
-  -- Harpoon
-  use('ThePrimeagen/harpoon')
+	-- Harpoon
+	use('ThePrimeagen/harpoon')
 
-  use('tpope/vim-fugitive')
+	use('tpope/vim-fugitive')
 
-  use {
-	  'VonHeikemen/lsp-zero.nvim',
-	  requires = {
-		  -- LSP Support
-		  {'neovim/nvim-lspconfig'},
-		  {'williamboman/mason.nvim'},
-		  {'williamboman/mason-lspconfig.nvim'},
+	use {
+		'VonHeikemen/lsp-zero.nvim',
+		requires = {
+			-- LSP Support
+			{ 'neovim/nvim-lspconfig' },
+			{ 'williamboman/mason.nvim' },
+			{ 'williamboman/mason-lspconfig.nvim' },
 
-		  -- Autocompletion
-		  {'hrsh7th/nvim-cmp'},
-		  {'hrsh7th/cmp-buffer'},
-		  {'hrsh7th/cmp-path'},
-		  {'saadparwaiz1/cmp_luasnip'},
-		  {'hrsh7th/cmp-nvim-lsp'},
-		  {'hrsh7th/cmp-nvim-lua'},
-		  {'delphinus/cmp-ctags'},
+			-- Autocompletion
+			{ 'hrsh7th/nvim-cmp' },
+			{ 'hrsh7th/cmp-buffer' },
+			{ 'hrsh7th/cmp-path' },
+			{ 'saadparwaiz1/cmp_luasnip' },
+			{ 'hrsh7th/cmp-nvim-lsp' },
+			{ 'hrsh7th/cmp-nvim-lua' },
+			{ 'delphinus/cmp-ctags' },
 
-		  -- Snippets
-		  {'L3MON4D3/LuaSnip'},
-		  --{'rafamadriz/friendly-snippets'},
-	  }
-  }
+			-- Snippets
+			{ 'L3MON4D3/LuaSnip' },
+			--{'rafamadriz/friendly-snippets'},
+		}
+	}
 
-  use {
-          "nvim-treesitter/nvim-treesitter-textobjects",
-          branch = "main",
-          after = "nvim-treesitter",
-          requires = "nvim-treesitter/nvim-treesitter",
-  }
+	use {
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	}
 
-  use('nvim-lualine/lualine.nvim')
+	use('nvim-lualine/lualine.nvim')
 
-  use('lervag/vimtex')
-  use('vim-pandoc/vim-pandoc')
-  use('ap/vim-css-color')
-  use('tpope/vim-surround')
-  use('airblade/vim-gitgutter')
-  use('tpope/vim-sleuth')
-  use('Yggdroot/indentLine')
-  use('tpope/vim-obsession')
-  use('rhysd/vim-clang-format')
-  use('stevearc/dressing.nvim')
-  use('tpope/vim-dispatch')
-  use('mbbill/undotree')
+	use('lervag/vimtex')
+	use('vim-pandoc/vim-pandoc')
+	use('ap/vim-css-color')
+	use('tpope/vim-surround')
+	use('airblade/vim-gitgutter')
+	use('tpope/vim-sleuth')
+	use('Yggdroot/indentLine')
+	use('tpope/vim-obsession')
+	use('rhysd/vim-clang-format')
+	use('stevearc/dressing.nvim')
+	use('tpope/vim-dispatch')
+	use('mbbill/undotree')
 
-  use({
-	  "iamcco/markdown-preview.nvim",
-	  run = function() vim.fn["mkdp#util#install"]() end,
-  })
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = function() vim.fn["mkdp#util#install"]() end,
+	})
 
-  use({'https://gitlab.com/schrieveslaach/sonarlint.nvim', as = 'sonarlint.nvim'})
-  use({'mtdl9/vim-log-highlighting'})
+	use({ 'https://gitlab.com/schrieveslaach/sonarlint.nvim', as = 'sonarlint.nvim' })
+	use({ 'mtdl9/vim-log-highlighting' })
 
-  use({'folke/zen-mode.nvim'})
-  use({'folke/trouble.nvim'})
-  use({'godlygeek/tabular'})
-  use({'j-hui/fidget.nvim'})
-  use({'nvim-tree/nvim-web-devicons'})
-  use({'Issafalcon/lsp-overloads.nvim'})
-  use({"stevearc/oil.nvim"})
-  use({"danymat/neogen"})
-  use({"nvim-treesitter/nvim-treesitter-context"})
+	use({ 'folke/zen-mode.nvim' })
+	use({ 'folke/trouble.nvim' })
+	use({ 'godlygeek/tabular' })
+	use({ 'j-hui/fidget.nvim' })
+	use({ 'nvim-tree/nvim-web-devicons' })
+	use({ 'Issafalcon/lsp-overloads.nvim' })
+	use({ "stevearc/oil.nvim" })
+	use({ "danymat/neogen" })
+	use({ "nvim-treesitter/nvim-treesitter-context" })
 
-  use({'mfussenegger/nvim-dap'})
-  use({'mfussenegger/nvim-dap-python'})
-  use({ "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} })
-  use({ "theHamsta/nvim-dap-virtual-text", requires = {"mfussenegger/nvim-dap"} })
-
-  use { "zbirenbaum/copilot.lua" }
-  use { "zbirenbaum/copilot-cmp", after = { "copilot.lua" },
-
-  use { "seblyng/roslyn.nvim" },
-  use { "sindrets/diffview.nvim" },
-}
+	use({ 'mfussenegger/nvim-dap' })
+	use({ 'mfussenegger/nvim-dap-python' })
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } })
+	use({ "theHamsta/nvim-dap-virtual-text", requires = { "mfussenegger/nvim-dap" } })
 
 
+	use { "seblyng/roslyn.nvim" }
+	use { "sindrets/diffview.nvim" }
+	use({ "giusgad/pets.nvim", requires = { "giusgad/hologram.nvim", "MunifTanjim/nui.nvim", } })
 end)
