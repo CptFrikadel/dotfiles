@@ -149,7 +149,8 @@ vim.lsp.enable('pyright')
 
 vim.lsp.config('clangd', {
 	cmd = { "clangd",
-		"--query-driver=/opt/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-*",
+		-- apt toolchain, plus the old /opt one for branches that haven't moved to it yet
+		"--query-driver=/usr/bin/arm-none-eabi-*,/opt/gcc-arm-none-eabi-*/bin/arm-none-eabi-*",
 	}
 })
 vim.lsp.enable('clangd')
