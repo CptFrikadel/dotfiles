@@ -148,7 +148,8 @@ vim.lsp.enable('lua_ls')
 vim.lsp.enable('pyright')
 
 vim.lsp.config('clangd', {
-	cmd = { "clangd",
+	-- a project .nvim.lua can set vim.g.clangd_cmd, e.g. to run clangd inside a build container
+	cmd = vim.g.clangd_cmd or { "clangd",
 		-- apt toolchain, plus the old /opt one for branches that haven't moved to it yet
 		"--query-driver=/usr/bin/arm-none-eabi-*,/opt/gcc-arm-none-eabi-*/bin/arm-none-eabi-*",
 	}
